@@ -1,0 +1,14 @@
+<%= render 'shared/errors', obj: @user %>
+<h1>The users signup page</h1>
+<%= form_with scope: :users , url:'/user/signup' , local: true ,method: :post , data: { turbo: false } do |f| %>
+<%= f.label :name%>
+<%= f.text_field :name%>
+<%= f.label :email%>
+<%= f.email_field :email%>
+<%= f.label :password%>
+<%= f.password_field :password%>
+</p>
+<p>
+<%= f.submit%>
+</p>
+<%end%>
