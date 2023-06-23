@@ -1,0 +1,20 @@
+<%= javascript_include_tag "test.js", "data-turbo-track": "reload", defer: true %>
+<%= render 'shared/errors', obj: @hotel %>
+<h1>Register the hotel here</h1>
+<%= form_with scope: :custom , url:'/hotel/handleCreate' , local: true ,method: :post , data: { turbo: false } do |f| %>
+<%= f.label :name%>
+<%= f.text_field :name%>
+<%= f.label :address%>
+<%= f.text_field :address%>
+<%= f.label :description%>
+<%= f.text_field :description%>
+ <div id="skillSet">
+  <p>Room types</p>
+  <div><%= render partial: "rooms_form", locals: {skill: false} %></div>
+  </div>
+  <button id="addtag">Add more Room types</button>
+<%= f.submit%>
+<%end%>
+<div id="new_skills_form" style="display:none">
+  <%= render partial: "rooms_form", locals: {room: false} %>
+</div>

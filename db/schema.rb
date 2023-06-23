@@ -11,40 +11,43 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.0].define(version: 2023_06_22_053636) do
-  create_table "articles", force: :cascade do |t|
-    t.string "name"
-    t.string "email"
-    t.string "phoneNumber"
-    t.string "employee_id"
-  end
-
   create_table "bookings", force: :cascade do |t|
-    t.integer "users_id"
-    t.integer "hotels_id"
+    t.integer "user_id"
+    t.integer "hotel_id"
+    t.integer "room_id"
     t.string "roomType"
     t.integer "numRoomsBooked"
     t.float "price"
     t.date "checkInDate"
     t.date "checkOutDate"
     t.boolean "isCancelled"
-    t.index ["hotels_id"], name: "index_bookings_on_hotels_id"
-    t.index ["users_id"], name: "index_bookings_on_users_id"
+    t.index ["hotel_id"], name: "index_bookings_on_hotel_id"
+    t.index ["room_id"], name: "index_bookings_on_room_id"
+    t.index ["user_id"], name: "index_bookings_on_user_id"
   end
 
   create_table "hotels", force: :cascade do |t|
+    t.integer "manager_id"
     t.string "name"
     t.string "address"
     t.string "description"
-    t.integer "managers_id"
-    t.index ["managers_id"], name: "index_hotels_on_managers_id"
+    t.index ["manager_id"], name: "index_hotels_on_manager_id"
+  end
+
+  create_table "managers", force: :cascade do |t|
+    t.string "name"
+    t.string "email"
+    t.string "phoneNumber"
+    t.string "password"
+    t.string "employee_id"
   end
 
   create_table "rooms", force: :cascade do |t|
-    t.integer "hotels_id"
+    t.integer "hotel_id"
     t.string "roomType"
     t.float "cost"
     t.integer "totalAvailable"
-    t.index ["hotels_id"], name: "index_rooms_on_hotels_id"
+    t.index ["hotel_id"], name: "index_rooms_on_hotel_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -53,8 +56,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_22_053636) do
     t.string "password"
   end
 
-  add_foreign_key "bookings", "hotels", column: "hotels_id"
-  add_foreign_key "bookings", "users", column: "users_id"
-  add_foreign_key "hotels", "managers", column: "managers_id"
-  add_foreign_key "rooms", "hotels", column: "hotels_id"
+  add_foreign_key "bookings", "hotels"
+  add_foreign_key "bookings", "rooms"
+  add_foreign_key "bookings", "users"
+  add_foreign_key "hotels", "managers"
+  add_foreign_key "rooms", "hotels"
 end

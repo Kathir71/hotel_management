@@ -18,4 +18,9 @@ Rails.application.routes.draw do
   post '/hotelManager/signup', to: "managers#handleSignup"
 
 
+  get '/hotel/create', to:"hotels#create"
+  post '/hotel/handleCreate' , to:"hotels#handleCreate"
+  post '/hotel/search', to:"hotels#search"
+
+
 end

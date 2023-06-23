@@ -1,3 +1,26 @@
 <h1>Home page</h1>
 <%= link_to "Sign Up" , signUp_path %>
 <%= link_to "Login" , login_path%>
+
+<% if user_logged_in? %>
+<p>User logged in</p>
+<%= current_user.name%>
+<%end%>
+
+<div class="bodyWrapper">
+<% if manager_logged_in? %>
+<p>Manager logged in</p>
+<%= link_to "Register your hotel" , '/hotel/create'%>
+<%= current_manager.name%>
+<%end%>
+</div>
+
+<%= form_with scope: :query , url:'/hotel/search' , local: true ,method: :post , data: { turbo: false } do |f| %>
+<%= f.label :query%>
+<%= f.text_field :query%>
+<%= f.label :checkInDate%>
+<%= f.date_field :checkInDate%>
+<%= f.label :checkOutDate%>
+<%= f.date_field :checkOutDate%>
+<%= f.submit "Search"%>
+<%end%>

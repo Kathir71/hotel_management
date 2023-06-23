@@ -10,9 +10,9 @@ class UsersController < ApplicationController
     def handleLogin
         loginEmail = params[:users]["email"]
         loginPassword = params[:users]["password"]
-        @user = User.where("email = ?" , loginEmail).where("password = ?" ,loginPassword)
-        puts @user
+        @user = User.where("email = ?" , loginEmail.downcase).where("password = ?" ,loginPassword).first
         if @user
+            session[:user_id] = @user.id
             flash[:notice] = "User logged in successfully"
             redirect_to "/"
         else
@@ -24,6 +24,7 @@ class UsersController < ApplicationController
         puts "hii"
         @user = User.new(params.require(:users).permit(:name , :email , :password))
     if @user.save
+        session[:user_id] = @user.id
         flash[:notice] = "User Signed up successfully."
         redirect_to '/'
     else 

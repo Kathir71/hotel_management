@@ -1,0 +1,18 @@
+<h1>The search results page</h1>
+<% @finalArr.each do |hotel|%>
+<div>
+<h2>Hotel</h2>
+    <p><%= hotel["hotel"].name%>
+    <p><%= hotel["hotel"].address%>
+    <p><%= hotel["hotel"].description%>
+    <h3>Rooms</h3>
+   <% hotel["rooms"].zip(hotel["availability"]).each do |room , availability| %>
+    <p><%= room.roomType%></p>
+    <p><%= room.cost%></p>
+    <p><%= availability%></p>
+    <%end%>
+    <h3>Manager</h3>
+    <p><%= hotel["manager"].name %></p>
+    <p><%= hotel["manager"].phoneNumber%></p>
+</div>
+<%end%>

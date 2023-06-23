@@ -1,1 +1,15 @@
+<%= render 'shared/errors', obj: @manager %>
 <h1>The manager sign up page</h1>
+<%= form_with scope: :managers , url:'/hotelManager/signup' , local: true ,method: :post , data: { turbo: false } do |f| %>
+<%= f.label :name%>
+<%= f.text_field :name%>
+<%= f.label :phoneNumber%>
+<%= f.text_field :phoneNumber%>
+<%= f.label :employee_id%>
+<%= f.text_field :employee_id%>
+<%= f.label :email%>
+<%= f.email_field :email%>
+<%= f.label :password%>
+<%= f.password_field :password%>
+<%= f.submit%>
+<%end%>
