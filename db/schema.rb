@@ -13,8 +13,8 @@
 ActiveRecord::Schema[7.0].define(version: 2023_06_22_053636) do
   create_table "bookings", force: :cascade do |t|
     t.integer "user_id"
-    t.integer "hotel_id"
     t.integer "room_id"
+    t.integer "hotel_id"
     t.string "roomType"
     t.integer "numRoomsBooked"
     t.float "price"

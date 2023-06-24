@@ -9,6 +9,7 @@ Rails.application.routes.draw do
 
   get '/user/login', to: "users#login" 
   get '/user/signup', to: "users#signup"
+  get '/user/dashboard', to: "users#dashboard"
   post '/user/login', to: "users#handleLogin"
   post '/user/signup', to: "users#handleSignup"
 
@@ -21,6 +22,7 @@ Rails.application.routes.draw do
   get '/hotel/create', to:"hotels#create"
   post '/hotel/handleCreate' , to:"hotels#handleCreate"
   post '/hotel/search', to:"hotels#search"
-
+  post '/hotel/book', to:"hotels#book"
+  post '/hotel/handleBooking' , to:"hotels#handleBooking"
 
 end

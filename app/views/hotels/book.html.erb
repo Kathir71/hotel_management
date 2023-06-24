@@ -1,0 +1,16 @@
+<p><%= @room["roomType"]%></p>
+<p><%= @room["roomCost"]%></p>
+<p><%= @room["availability"]%></p>
+
+<%= form_with scope: :booking , url:'/hotel/handleBooking' , local: true ,method: :post , data: { turbo: false } do |f| %>
+<%= f.label :numRoomsBooked%>
+<%= f.number_field :numRoomsBooked%>
+<%= f.hidden_field :roomType, :value => @room["roomType"] %>
+<%= f.hidden_field :roomCost, :value => @room["roomCost"] %>
+<%= f.hidden_field :roomId, :value => @room["roomId"] %>
+<%= f.hidden_field :hotelId , :value =>@hotelId%>
+<%= f.hidden_field :checkInDate, :value => @checkInDate %>
+<%= f.hidden_field :checkOutDate, :value => @checkOutDate %>
+
+<%= f.submit%>
+<%end%>

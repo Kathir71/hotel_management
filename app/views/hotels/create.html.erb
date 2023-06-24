@@ -8,13 +8,13 @@
 <%= f.text_field :address%>
 <%= f.label :description%>
 <%= f.text_field :description%>
- <div id="skillSet">
+ <div id="rooms">
   <p>Room types</p>
   <div><%= render partial: "rooms_form", locals: {skill: false} %></div>
   </div>
   <button id="addtag">Add more Room types</button>
 <%= f.submit%>
 <%end%>
-<div id="new_skills_form" style="display:none">
+<div id="new_rooms_form" style="display:none">
   <%= render partial: "rooms_form", locals: {room: false} %>
 </div>

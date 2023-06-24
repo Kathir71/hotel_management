@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+    before_action :require_user , only: [:dashboard]
     def signup
         @user = User.new
     end
@@ -31,4 +32,17 @@ class UsersController < ApplicationController
         render 'signup'
     end
     end
+
+    def dashboard
+        @userBookings = current_user.bookings
+    end
+
+    private
+    
+    def require_user
+    if !user_logged_in?
+      flash[:danger] = "You need to be logged in to perform that action"
+      redirect_to root_path
+    end
+  end
 end

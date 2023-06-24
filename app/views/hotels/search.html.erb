@@ -10,6 +10,11 @@
     <p><%= room.roomType%></p>
     <p><%= room.cost%></p>
     <p><%= availability%></p>
+    <%= button_to "Book this" , 
+    hotel_book_path(:roomDetails =>{:availability => availability ,  :roomType => room.roomType , :roomCost => room.cost , :checkInDate => @checkInDate , :checkOutDate => @checkOutDate , :roomId => room.id , :hotelId => hotel["hotel"].id}), 
+    data: { 'turbo-method' => :post }
+    %>
+
     <%end%>
     <h3>Manager</h3>
     <p><%= hotel["manager"].name %></p>
