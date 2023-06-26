@@ -1,3 +1,19 @@
-<h1>The choose login page</h1>
-<%= link_to "Login as manager" , hotelManager_login_path%>
-<%= link_to "Login as user" , user_login_path%>
+<div class="parent_container">
+
+<div class="choose_left_col">
+<div class="choose_content">
+    <h1>For Hotels</h1>
+    <p> Thanks for trusting us with your hotels.</p>
+    <%= link_to "Login" , hotelManager_login_path , :class => 'left_col_btn'%>
+</div>
+</div>
+
+<div class="choose_right_col">
+<div class="choose_content">
+    <h1>For Customers</h1>
+    <p>Explore the top travel destinations with us</p>
+<%= link_to "Login" , user_login_path , :class => 'right_col_btn'%>
+</div>
+</div>
+
+</div>

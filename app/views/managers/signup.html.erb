@@ -1,15 +1,29 @@
 <%= render 'shared/errors', obj: @manager %>
-<h1>The manager sign up page</h1>
-<%= form_with scope: :managers , url:'/hotelManager/signup' , local: true ,method: :post , data: { turbo: false } do |f| %>
-<%= f.label :name%>
-<%= f.text_field :name%>
-<%= f.label :phoneNumber%>
-<%= f.text_field :phoneNumber%>
-<%= f.label :employee_id%>
-<%= f.text_field :employee_id%>
-<%= f.label :email%>
-<%= f.email_field :email%>
-<%= f.label :password%>
-<%= f.password_field :password%>
-<%= f.submit%>
+<div class="login_form">
+    <h1>Manager SignUp</h1>
+    <div class="input_container">
+        <%= form_with scope: :managers , url:'/hotelManager/signup' , local: true ,method: :post , data: { turbo: false } do |f| %>
+        <div class="row">
+            <%= f.label :name%>
+            <%= f.text_field :name , placeholder:"Name"%>
+        </div>
+        <div class="row">
+            <%= f.label :phoneNumber%>
+            <%= f.text_field :phoneNumber , placeholder: "Phone Number"%>
+        </div>
+        <div class="row">
+            <%= f.label :employee_id%>
+            <%= f.text_field :employee_id , placeholder: "Employee Id"%>
+        </div>
+        <div class="row">
+            <%= f.label :email%>
+            <%= f.email_field :email, placeholder: "Email"%>
+        </div>
+        <div class="row">
+            <%= f.label :password%>
+            <%= f.password_field :password, placeholder: "Password" %>
+        </div>
+        <%= f.submit "Sign up" , :class => 'login_btn'%>
+    </div>
+</div>
 <%end%>

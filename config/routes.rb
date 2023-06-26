@@ -20,6 +20,7 @@ Rails.application.routes.draw do
   post '/hotelManager/login', to: "managers#handleLogin"
   post '/hotelManager/signup', to: "managers#handleSignup"
   post '/hotelManager/search', to: "managers#handleUserSearch"
+  post '/hotelManager/intervalSearch', to: "managers#handleIntervalSearch"
   delete '/hotelManager/logout', to:"managers#logout"
 
 

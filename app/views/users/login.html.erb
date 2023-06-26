@@ -1,13 +1,18 @@
-<%# <%= render 'shared/errors', obj: @user %> %>
+<%# <%= render 'shared/errors' , obj: @user %> 
 
-<h1>The users login page</h1>
-<%= form_with scope: :users , url:'/user/login' , local: true ,method: :post , data: { turbo: false } do |f| %>
-<%= f.label :email%>
-<%= f.email_field :email%>
-<%= f.label :password%>
-<%= f.password_field :password%>
-</p>
-<p>
-<%= f.submit%>
-</p>
-<%end%>
+<div class = "login_form">
+   <h1>User Login</h1>
+    <%= form_with scope: :users , url:'/user/login' , local: true ,method: :post , data: { turbo: false } do |f| %>
+    <div class="input_container">
+        <div class="row">
+            <%= f.label :email%>
+            <%= f.email_field :email, placeholder:"Email"%>
+        </div>
+        <div class="row">
+            <%= f.label :password%>
+            <%= f.password_field :password ,placeholder: "Password"%>
+        </div>
+        <%= f.submit "Login" , :class => 'login_btn'%>
+    </div>
+    <%end%>
+</div>

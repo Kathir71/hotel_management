@@ -23,13 +23,13 @@ class UsersController < ApplicationController
     end
 
     def handleSignup
-        puts "hii"
         @user = User.new(params.require(:users).permit(:name , :email , :password))
     if @user.save
         session[:user_id] = @user.id
         flash[:success] = "User Signed up successfully."
         redirect_to '/'
     else 
+        @user = User.new()
         render 'signup'
     end
     end

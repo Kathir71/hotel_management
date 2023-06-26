@@ -21,6 +21,17 @@
   <% end %>
 </div>
 
+<h3>Search in interval</h3>
+<%= form_with scope: :query , url:hotelManager_intervalSearch_path , local: true ,method: :post , data: { turbo: false } do |f| %>
+
+<%= f.label :checkInDate%>
+<%= f.date_field :checkInDate%>
+<%= f.label :checkOutDate%>
+<%= f.date_field :checkOutDate%>
+<p>
+<%= f.submit%>
+</p>
+<%end%>
 </div>
 <h2>Bookings in the hotel</h2>
 <% if @hotelBookings.length == 0 %>

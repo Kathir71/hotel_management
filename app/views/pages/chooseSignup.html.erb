@@ -1,3 +1,19 @@
-<h1>Two divs for sign up as a manager and sign up as a user</h1>
-<%= link_to "Sign up as a hotel admin" , hotelManager_signup_path %>
-<%= link_to "Sign up as user" , user_signup_path%>
+<div class="parent_container">
+
+<div class="choose_left_col">
+<div class="choose_content">
+    <h1>For Hotels</h1>
+    <p> Use book easy to increase your revenue multifold.</p>
+    <%= link_to "Sign up" , hotelManager_signup_path , :class => 'left_col_btn'%>
+</div>
+</div>
+
+<div class="choose_right_col">
+<div class="choose_content">
+    <h1>For Customers</h1>
+    <p>Find the lowest prices for hotels to make your travel easier.</p>
+    <%= link_to "Sign up" , user_signup_path , :class => 'right_col_btn'%>
+</div>
+</div>
+
+</div>

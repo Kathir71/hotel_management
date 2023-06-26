@@ -52,6 +52,28 @@ class ManagersController < ApplicationController
     #   render json: { html: render_to_string(partial: 'managers/result') }
     end
 
+    def handleIntervalSearch
+        checkInDate = params[:query]["checkInDate"]
+        checkOutDate = params[:query]["checkOutDate"]
+        @hotel = current_manager.hotel;
+        if checkInDate == "" && checkOutDate ==""
+            @searchResults = @hotel.bookings.joins(:user , :room).select('bookings.*' , 'users.*' , 'rooms.*');
+        elsif checkInDate == ""
+            #users leaving before a given date
+            @searchResults = @hotel.bookings.joins(:user , :room).select('bookings.*' , 'users.*' , 'rooms.*').where("checkOutDate <= ?" , checkOutDate.to_date)
+
+        elsif checkOutDate == ""
+            #users arriving after a certain date
+            @searchResults = @hotel.bookings.joins(:user , :room).select('bookings.*' , 'users.*' , 'rooms.*').where("checkInDate >= ?" , checkInDate.to_date)
+
+        else
+            #users in the interval
+            @searchResults = @hotel.bookings.joins(:user , :room).select('bookings.*' , 'users.*' , 'rooms.*').where("checkInDate >= ?" , checkInDate.to_date).where("checkOutDate <= ?" , checkOutDate.to_date)
+        end
+      render 'search'
+        
+    end
+
     def logout
     session[:manager_id] = nil
     flash[:success] = "You have successfully logged out"
