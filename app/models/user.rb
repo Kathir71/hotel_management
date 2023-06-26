@@ -6,5 +6,7 @@ class User < ApplicationRecord
                       uniqueness: { case_sensitive: false }, 
                       length: { maximum: 105 },
                       format: { with: VALID_EMAIL_REGEX }
+  validates :name , presence: true
+  validates :password , presence: true
   has_many :bookings
 end

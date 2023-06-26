@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
-    before_action :require_user , only: [:dashboard]
+    before_action :require_not_manager
+    before_action :require_user , only: [:dashboard , :logout]
     def signup
         @user = User.new
     end
@@ -14,7 +15,7 @@ class UsersController < ApplicationController
         @user = User.where("email = ?" , loginEmail.downcase).where("password = ?" ,loginPassword).first
         if @user
             session[:user_id] = @user.id
-            flash[:notice] = "User logged in successfully"
+            flash[:success] = "User logged in successfully"
             redirect_to "/"
         else
             render 'login'
@@ -26,7 +27,7 @@ class UsersController < ApplicationController
         @user = User.new(params.require(:users).permit(:name , :email , :password))
     if @user.save
         session[:user_id] = @user.id
-        flash[:notice] = "User Signed up successfully."
+        flash[:success] = "User Signed up successfully."
         redirect_to '/'
     else 
         render 'signup'
@@ -34,15 +35,31 @@ class UsersController < ApplicationController
     end
 
     def dashboard
-        @userBookings = current_user.bookings
+        @pastBookings = Booking.joins(:hotel).select('bookings.* ,hotels.*').where("user_id = ?" , current_user.id).where("checkOutDate < ?" , Time.new.to_date).order(:checkInDate)
+        @onGoingBookings = Booking.joins(:hotel).select('bookings.* ,hotels.*').where("user_id = ?" , current_user.id).where("checkInDate <= ?" , Time.new.to_date).where("checkOutDate >= ?" , Time.new.to_date).order(:checkInDate)
+        @futureBookings = Booking.joins(:hotel).select('bookings.* ,hotels.*').where("user_id = ?" , current_user.id).where("checkInDate > ?" , Time.new.to_date).order(:checkInDate)
+    end
+
+    def logout
+    session[:user_id] = nil
+    flash[:success] = "You have successfully logged out"
+    redirect_to root_path    
     end
 
     private
     
-    def require_user
+  def require_user
     if !user_logged_in?
       flash[:danger] = "You need to be logged in to perform that action"
       redirect_to root_path
     end
   end
+
+    def require_not_manager
+        if manager_logged_in?
+            flash[:danger] = "Manager can't access user paths"
+            redirect_to root_path
+        end
+    end
+
 end

@@ -1,5 +1,31 @@
-<%= @userBookings.each do |booking|%>
-<p><%= booking.roomType %></p>
-<p><%= booking.checkInDate %></p>
-<p><%= booking.checkOutDate %></p>
+<h1>The user dashboard page</h1>
+<p><%= current_user.name%></p>
+<p><%= current_user.email%></p>
+<h2>Past stays</h2>
+<% @pastBookings.each do |booking|%>
+<p>RoomType <%= booking.roomType %></p>
+<p>CheckInDate <%= booking.checkInDate %></p>
+<p>CheckOutDate <%= booking.checkOutDate %></p>
+<p>Num Rooms Booked <%= booking.numRoomsBooked %></p>
+<p>Price <%= booking.price %></p>
+<p>Hotel <%= booking.name%></p>
+
+<%end%>
+<h2>Ongoing stays</h2>
+<% @onGoingBookings.each do |booking|%>
+<p>RoomType <%= booking.roomType %></p>
+<p>CheckInDate <%= booking.checkInDate %></p>
+<p>CheckOutDate <%= booking.checkOutDate %></p>
+<p>Num Rooms Booked <%= booking.numRoomsBooked %></p>
+<p>Price <%= booking.price %></p>
+<p>Hotel <%= booking.name%></p>
+<%end%>
+<h2>Upcoming stays</h2>
+<% @futureBookings.each do |booking|%>
+<p>RoomType <%= booking.roomType %></p>
+<p>CheckInDate <%= booking.checkInDate %></p>
+<p>CheckOutDate <%= booking.checkOutDate %></p>
+<p>Num Rooms Booked <%= booking.numRoomsBooked %></p>
+<p>Price <%= booking.price %></p>
+<p>Hotel <%= booking.name%></p>
 <%end%>

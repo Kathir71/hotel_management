@@ -1,0 +1,17 @@
+<% if params[:action] == 'search' %>
+  <div class="results-block">
+    <%= bootstrap_flash %>
+  </div>
+<% end %>
+<%if @searchResults && @searchResults.length == 0%>
+<p>No user of the email found</p>
+<%elsif @searchResults%>
+<%@searchResults.each do |booking|%>
+<p>Customer Name:<%= booking.name%></p>
+<p>Customer Email: <%= booking.email%></p>
+<p>Room Type <%= booking.roomType%></p>
+<p>Num Rooms Booked <%= booking.numRoomsBooked%></p>
+<p>CheckInDate <%= booking.checkInDate%></p>
+<p>CheckOutDate <%= booking.checkOutDate%></p>
+<%end%>
+<%end%>

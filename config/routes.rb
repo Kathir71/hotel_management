@@ -12,11 +12,15 @@ Rails.application.routes.draw do
   get '/user/dashboard', to: "users#dashboard"
   post '/user/login', to: "users#handleLogin"
   post '/user/signup', to: "users#handleSignup"
+  delete '/user/logout', to:"users#logout"
 
   get '/hotelManager/login', to: "managers#login"
   get '/hotelManager/signup', to: "managers#signup"
+  get '/hotelManager/dashboard', to:"managers#dashboard"
   post '/hotelManager/login', to: "managers#handleLogin"
   post '/hotelManager/signup', to: "managers#handleSignup"
+  post '/hotelManager/search', to: "managers#handleUserSearch"
+  delete '/hotelManager/logout', to:"managers#logout"
 
 
   get '/hotel/create', to:"hotels#create"
