@@ -1,33 +1,74 @@
 <section class="section-background parallax">
   <div>
-  <h1>SEE THE WORLD FOR LESS</h1>
-  <p>We at book easy ensure that you can find your best stays at ease.</p>
+    <h1>SEE THE WORLD FOR LESS</h1>
+    <p>We at book easy ensure that you can find your best stays at ease.</p>
   </div>
 </section>
 <div class="search_form">
-    <%= form_with scope: :query , url:'/hotel/search' , local: true ,method: :post , data: { turbo: false } do |f| %>
+  <%= form_with scope: :query , url:'/hotel/search' , local: true ,method: :post , data: { turbo: false } do |f| %>
     <div class="search_input_container">
-        <div class="search_row"><i class="bi bi-geo-alt"></i><%= f.text_field :query , placeholder: "Search locations or hotels"%></div>
-        <div class="search_row_2">
+      <div class="search_row"><i class="bi bi-geo-alt"></i>
+        <%= f.text_field :query , placeholder: "Search locations or hotels" %>
+          <label class="dropdown">
+            <div class="dd-button">
+              Sort by
+            </div>
+
+            <input type="checkbox" class="dd-input" id="test">
+
+            <ul class="dd-menu">
+              <div class="checkbox">
+                <td>
+                  <%= f.check_box :sortByprice %>
+                    <%= f.label :Price %>
+                </td>
+              </div>
+              <div class="checkbox">
+                <td>
+                  <%= f.check_box :sortByAvailability %>
+                    <%= f.label :Availability %>
+                </td>
+              </div>
+            </ul>
+
+          </label>
+
+      </div>
+      <div class="search_row_2">
         <div>
-            <%= f.label "Check in"%>
-                <%= f.date_field :checkInDate , placeholder: "Check in date"%>
+          <%= f.label "Check in date" %>
+            <%= f.date_field :checkInDate , placeholder: "Check in date" %>
         </div>
         <div>
-            <%= f.label "Check out"%>
-                <%= f.date_field :checkOutDate , placeholder: "Check out date"%>
+          <%= f.label "Check out date" %>
+            <%= f.date_field :checkOutDate , placeholder: "Check out date" %>
         </div>
-        </div>
+      </div>
+      <div class="checkbox">
+        <td>
+          <%= f.check_box :onlyAvailable %>
+            <%= f.label :onlyAvailable %>
+        </td>
+      </div>
     </div>
-    <div class="search_btn_container"><%= f.submit "Search" , :class => "home_search_button"%></div>
+<div class="range_search">
+      <p>Find hotels that have price within the range</p>
+        <%= f.number_field :lowerBound%>
+        to
+        <%= f.number_field :upperBound%>
+    </div>
+
+        <div class="search_btn_container">
+      <%= f.submit "Search" , :class=> "home_search_button"%>
+    </div>
 </div>
-<section>
-<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium ut quos sunt?</p>
-<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium ut quos sunt?</p>
-<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium ut quos sunt?</p>
-<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium ut quos sunt?</p>
-<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium ut quos sunt?</p>
-<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium ut quos sunt?</p>
-<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium ut quos sunt?</p>
-    </section>
 <%end%>
+  <section class= "info_sec">
+  <div class = "info_sec_content">
+  <h2>Explore more and enjoy more</h2>
+  <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Assumenda, non laboriosam laborum rem nostrum sit ratione maiores dolorum ipsa. Commodi.</p>
+  </div>
+  <div class = "img_container">
+  </div>
+  </section>
+  

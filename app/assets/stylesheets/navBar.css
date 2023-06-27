@@ -121,6 +121,10 @@ nav a:hover {
   opacity: 1;
   transition: opacity 250ms ease-in-out 250ms;
 }
+.logout_link{
+  color:yellow;
+  background-color: yellow;
+}
 
 @media screen and (min-width: 800px) {
   .nav-toggle-label {

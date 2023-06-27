@@ -45,6 +45,37 @@ class HotelsController < ApplicationController
             combinedObj["availability"] = roomAvailability
             @finalArr << combinedObj
         end
+        #filters
+        onlyAvailable = params[:query]["onlyAvailable"].to_i
+        sortByprice = params[:query]["sortByprice"].to_i
+        sortByAvailability = params[:query]["sortByAvailability"].to_i
+        if onlyAvailable == 1
+            @finalArr = filter_only_available(@finalArr)
+        end
+
+        if sortByprice == 1
+            @finalArr = sort_based_on_cost(@finalArr)
+        end
+
+        if sortByAvailability == 1
+            @finalArr = sort_based_on_availability(@finalArr)
+        end
+
+        lowerBound = params[:query]["lowerBound"]
+        if (lowerBound == "")
+            lowerBound = 0
+        else 
+            lowerBound = lowerBound.to_i
+        end
+        upperBound = params[:query]["upperBound"]
+        if (upperBound == "")
+            upperBound = 999999999999;
+        else
+            upperBound = upperBound.to_i 
+        end
+
+        @finalArr = filter_based_on_cost(@finalArr , lowerBound , upperBound);
+
         render 'search'
     end
 
@@ -126,11 +157,12 @@ class HotelsController < ApplicationController
     def within_price? (obj , lowerBound  , upperBound )
         val = false
         obj["rooms"].each do |room|
+            # debugger
             if room.cost >= lowerBound && room.cost <= upperBound
                 val = true
             end
-        val
         end
+        val
     end
 
     def available? (obj)
@@ -155,14 +187,15 @@ class HotelsController < ApplicationController
             end
 
             if xtotalAvailability > ytotalAvailability
-                1
-            elsif xtotalAvailability < ytotalAvailability
                 -1
+            elsif xtotalAvailability < ytotalAvailability
+                1
             else
                 0
             end
 
         end
+        arr
     end
 
     def sort_based_on_cost(arr)
@@ -189,6 +222,7 @@ class HotelsController < ApplicationController
                 0
             end
         end
+        arr
     end
 
     def filter_based_on_cost(arr , lowerBound = 0 , upperBound = 999999999)

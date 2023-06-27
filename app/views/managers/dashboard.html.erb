@@ -22,7 +22,7 @@
 </div>
 
 <h3>Search in interval</h3>
-<%= form_with scope: :query , url:hotelManager_intervalSearch_path , local: true ,method: :post , data: { turbo: false } do |f| %>
+<%= form_with scope: :query , url:hotelManager_intervalSearch_path, data: { remote: true } do |f| %>
 
 <%= f.label :checkInDate%>
 <%= f.date_field :checkInDate%>

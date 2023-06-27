@@ -53,6 +53,8 @@ class ManagersController < ApplicationController
     end
 
     def handleIntervalSearch
+        # debugger
+
         checkInDate = params[:query]["checkInDate"]
         checkOutDate = params[:query]["checkOutDate"]
         @hotel = current_manager.hotel;
