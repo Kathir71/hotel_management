@@ -1,52 +1,72 @@
-<h2>The manager dashboard page</h2>
-<h2>Hotel Details</h2>
-<p><%= @hotel.name %></p>
-<p><%= @hotel.address %></p>
-<p><%= @hotel.description %></p>
-<div>
-
-<h3>Search for Users</h3>
-<div id="stock-lookup">
-  <%= form_tag hotelManager_search_path, remote: true, method: :post, id: 'user-lookup-form' do %>
-    <div class="form-group row no-padding text-center col-md-12">
-      <div class="col-md-10">
-        <%= text_field_tag :queryEmail, params[:query], placeholder: "Enter the email of the user", autofocus: true, class: "form-control search-box input-lg" %>
+<div class="first_row">
+  <div class="hotel_details">
+    <h2>Hotel Details</h2>
+    <p>
+      <%= @hotel.name %>
+    </p>
+    <p>
+      <%= @hotel.address %>
+    </p>
+    <p>
+      <%= @hotel.description %>
+    </p>
+  </div>
+  
+      <div class="searchElements">
+      <h1>Welcome Manager <span style="color:#c374be;"><%= current_manager.name %></span></h1>
+      <div class="userSearch">
+      <h2>Search for a user</h2>
+        <%= form_with scope: :query , url:hotelManager_search_path , data: {remote:true} do |f|%>
+          <%= f.text_field :queryEmail , placeholder:"Enter the email of the user to search"%>
+            <%= f.submit "Search User", :class => 'right_col_btn'%>
+              <%end%>
       </div>
-      <div class="col-md-2">
-        <%= button_tag(type: :submit, class: "btn btn-lg btn-success") do %>
-          <i class="fa fa-search"></i> Look up the user
-        <% end %>
+      <div class="intervalSearch">
+      <h2>Search bookings in a time interval</h2>
+        <%= form_with scope: :query , url:hotelManager_intervalSearch_path, data: { remote: true } do |f| %>
+  
+          <%= f.label :checkInDate%>
+            <%= f.date_field :checkInDate%>
+              <%= f.label :checkOutDate%>
+                <%= f.date_field :checkOutDate%>
+                  <p>
+                    <%= f.submit "Search bookings", :class => 'right_col_btn' %>
+                  </p>
+                  <%end%>
       </div>
     </div>
-  <% end %>
 </div>
-
-<h3>Search in interval</h3>
-<%= form_with scope: :query , url:hotelManager_intervalSearch_path, data: { remote: true } do |f| %>
-
-<%= f.label :checkInDate%>
-<%= f.date_field :checkInDate%>
-<%= f.label :checkOutDate%>
-<%= f.date_field :checkOutDate%>
-<p>
-<%= f.submit%>
-</p>
-<%end%>
+<div class="msecond_row">
+  <% if @hotelBookings.length==0 %>
+    <p>Your hotel doesn't have any bookings yet.</p>
+    <%else%>
+     <div class="bookings_container">
+  <h2>Bookings in the <%= @hotel.name %></h2>
+    <div class="hotel_bookings_header">
+    <li>Customer Name</li>
+    <li>Customer Email</li>
+    <li>Room</li>
+    <li>Number of rooms</li>
+    <li>CheckIn</li>
+    <li>CheckOut</li>
+    </div>
+ 
+        <%@hotelBookings.each do |booking|%>
+          <div class="booking_row">
+            <p><%= booking.name%>
+            </p>
+            <p><%= booking.email%>
+            </p>
+            <p><%= booking.roomType%>
+            </p>
+            <p><%= booking.numRoomsBooked%>
+            </p>
+            <p><%= booking.checkInDate%>
+            </p>
+            <p><%= booking.checkOutDate%>
+            </p>
+          </div>
+            <%end%>
+      </div>
+  <%end%>
 </div>
-<h2>Bookings in the hotel</h2>
-<% if @hotelBookings.length == 0 %>
-<p>Your hotel doesn't have any bookings yet.</p>
-<%else%>
-<%@hotelBookings.each do |booking|%>
-<p>Customer Name:<%= booking.name%></p>
-<p>Customer Email: <%= booking.email%></p>
-<p>Room Type <%= booking.roomType%></p>
-<p>Num Rooms Booked <%= booking.numRoomsBooked%></p>
-<p>CheckInDate <%= booking.checkInDate%></p>
-<p>CheckOutDate <%= booking.checkOutDate%></p>
-<%end%>
-<%end%>
-
-<%# <div id="result">
-<%= render 'result'%>
-<%# </div> %> %>

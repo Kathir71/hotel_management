@@ -41,7 +41,7 @@ class ManagersController < ApplicationController
     end
 
     def handleUserSearch
-      query = params["queryEmail"].downcase 
+      query = params[:query]["queryEmail"].downcase 
       user = User.where("email = ?" , query).first
       @searchResults = Booking.joins(:user , :room).select('bookings.*' , 'users.*' , 'rooms.*').where("user_id = ?" , user.id)
       render 'search'

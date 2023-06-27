@@ -1,9 +1,33 @@
     <h1>User search details</h1>
-    <% @searchResults.each do |booking|%>
-    <p>Customer Name:<%= booking.name%></p>
-    <p>Customer Email: <%= booking.email%></p>
-    <p>Room Type <%= booking.roomType%></p>
-    <p>Num Rooms Booked <%= booking.numRoomsBooked%></p>
-    <p>CheckInDate <%= booking.checkInDate%></p>
-    <p>CheckOutDate <%= booking.checkOutDate%></p>
+    <% if @searchResults.length == 0%>
+    <p>No results found</p>
+    <%else%>
+   <div class = "bookings_container">
+       <div class="hotel_bookings_header">
+        <li>Customer Name</li>
+        <li>Customer Email</li>
+        <li>Room</li>
+        <li>Number of rooms</li>
+        <li>CheckIn</li>
+        <li>CheckOut</li>
+        </div>
+            <%@searchResults.each do |booking|%>
+              <div class="booking_row">
+                <p><%= booking.name%>
+                </p>
+                <p><%= booking.email%>
+                </p>
+                <p><%= booking.roomType%>
+                </p>
+                <p><%= booking.numRoomsBooked%>
+                </p>
+                <p><%= booking.checkInDate%>
+                </p>
+                <p><%= booking.checkOutDate%>
+                </p>
+              </div>
+                <%end%>
+          </div>
+   </div>
+ 
     <%end%>

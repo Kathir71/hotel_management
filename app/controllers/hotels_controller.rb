@@ -88,6 +88,7 @@ class HotelsController < ApplicationController
     @checkInDate = params[:roomDetails][:checkInDate]
     @checkOutDate = params[:roomDetails][:checkOutDate]
     @hotelId = params[:roomDetails][:hotelId]
+    @hotel = Hotel.find(@hotelId);
     render 'book'
     end
 

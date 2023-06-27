@@ -1,16 +1,35 @@
-<p><%= @room["roomType"]%></p>
-<p><%= @room["roomCost"]%></p>
-<p><%= @room["availability"]%></p>
+<div class="booking_details">
+<h1>Review your booking</h1>
+<div class = "booking_details_header">
+<li>Hotel</li>
+<li>Address</li>
+<li>Room type</li>
+<li>Cost per day</li>
+<li>Check in date</li>
+<li>Check out date</li>
+</div>
+    <div class="tbooking_row">
+        <p>Hotel <%= @hotel.name %></p>
+        <p>Address <%= @hotel.address %></p>
+        <p><%= @room["roomType"]%></p>
+        <p><%= @room["roomCost"]%></p>
+        <p><%= @checkInDate %></p>
+        <p><%= @checkOutDate %></p>
+    </div>
+</div>
 
-<%= form_with scope: :booking , url:'/hotel/handleBooking' , local: true ,method: :post , data: { turbo: false } do |f| %>
-<%= f.label :numRoomsBooked%>
-<%= f.number_field :numRoomsBooked%>
-<%= f.hidden_field :roomType, :value => @room["roomType"] %>
-<%= f.hidden_field :roomCost, :value => @room["roomCost"] %>
-<%= f.hidden_field :roomId, :value => @room["roomId"] %>
-<%= f.hidden_field :hotelId , :value =>@hotelId%>
-<%= f.hidden_field :checkInDate, :value => @checkInDate %>
-<%= f.hidden_field :checkOutDate, :value => @checkOutDate %>
-
-<%= f.submit%>
-<%end%>
+<div class="tbooking_form">
+    <%= form_with scope: :booking , url:'/hotel/handleBooking' , local: true ,method: :post , data: { turbo: false } do |f| %>
+    <p>Please enter the number of rooms required to complete the booking , not exceeding <%= @room["availability"] %></p>
+    <%= f.label "Number of rooms needed"%>
+    <%= f.number_field :numRoomsBooked%>
+    <%= f.hidden_field :roomType, :value => @room["roomType"] %>
+    <%= f.hidden_field :roomCost, :value => @room["roomCost"] %>
+    <%= f.hidden_field :roomId, :value => @room["roomId"] %>
+    <%= f.hidden_field :hotelId , :value =>@hotelId%>
+    <%= f.hidden_field :checkInDate, :value => @checkInDate %>
+    <%= f.hidden_field :checkOutDate, :value => @checkOutDate %>
+    
+    <%= f.submit "Book" , :class => 'login_btn'%>
+    <%end%>
+</div>
