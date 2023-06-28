@@ -11,7 +11,9 @@
 </div>
     <div class="dashboard_row_container">
         <h2>Past stays</h2>
-        <% @pastBookings.each do |booking|%>
+        <%if @pastBookings.length == 0%>
+            <p>No past stays </p>
+        <%else%>
         <div class="dashboard_header">
         <li>Hotel</li>
         <li>Room Type</li>
@@ -20,19 +22,17 @@
         <li>Check in date</li>
         <li>Check out date</li>
         </div>
-        <div class="dashboard_row">
-            <p><%= booking.name%></p>
-            <p><%= booking.roomType %></p>
-            <p><%= booking.numRoomsBooked %></p>
-            <p><%= booking.price %></p>
-            <p><%= booking.checkInDate %></p>
-            <p><%= booking.checkOutDate %></p>
-        </div>
-        <%end%>
+ 
+<%= render 'booking', obj: @onGoingBookings %>
+  <%= will_paginate @onGoingBookings%>
+       <%end%>
     </div>
 
 <div class="dashboard_row_container">
 <h2 style="color:blue">Ongoing stays</h2>
+        <%if @onGoingBookings.length == 0%>
+            <p>No ongoing stays </p>
+        <%else%>
 <div class="dashboard_header">
 <li>Hotel</li>
 <li>Room Type</li>
@@ -41,20 +41,18 @@
 <li>Check in date</li>
 <li>Check out date</li>
 </div>
- 
-    <% @onGoingBookings.each do |booking|%>
-    <div class="dashboard_row">
-        <p><%= booking.name %></p>
-        <p><%= booking.roomType %></p>
-        <p><%= booking.numRoomsBooked %></p>
-        <p><%= booking.price %></p>
-        <p><%= booking.checkInDate %></p>
-        <p><%= booking.checkOutDate %></p>
-    </div>
-    <%end%>
+ <div >
+</div>
+<%= render 'booking', obj: @onGoingBookings %>
+  <%= will_paginate @onGoingBookings%>
+   <%end%>
 </div>
 <div class="dashboard_row_container">
 <h2 style="color:green">Upcoming stays</h2>
+
+        <%if @futureBookings.length == 0%>
+            <p>No upcoming stays </p>
+        <%else%>
 <div class="dashboard_header">
 <li>Hotel</li>
 <li>Room Type</li>
@@ -63,16 +61,7 @@
 <li>Check in date</li>
 <li>Check out date</li>
 </div>
-    <% @futureBookings.each do |booking|%>
-    <div class="dashboard_row">
-        <p><%= booking.name%></p>
-        <p><%= booking.roomType %></p>
-        <p><%= booking.numRoomsBooked %></p>
-        <p><%= booking.price %></p>
-        <p><%= booking.checkInDate %></p>
-        <p><%= booking.checkOutDate %></p>
-    </div>
-    
-    
+<%= render 'booking', obj: @futureBookings %>
+  <%= will_paginate @futureBookings%>
     <%end%>
 </div>

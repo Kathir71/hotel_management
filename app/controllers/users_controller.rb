@@ -35,9 +35,9 @@ class UsersController < ApplicationController
     end
 
     def dashboard
-        @pastBookings = Booking.joins(:hotel).select('bookings.* ,hotels.*').where("user_id = ?" , current_user.id).where("checkOutDate < ?" , Time.new.to_date).order(:checkInDate)
-        @onGoingBookings = Booking.joins(:hotel).select('bookings.* ,hotels.*').where("user_id = ?" , current_user.id).where("checkInDate <= ?" , Time.new.to_date).where("checkOutDate >= ?" , Time.new.to_date).order(:checkInDate)
-        @futureBookings = Booking.joins(:hotel).select('bookings.* ,hotels.*').where("user_id = ?" , current_user.id).where("checkInDate > ?" , Time.new.to_date).order(:checkInDate)
+        @pastBookings = Booking.joins(:hotel).select('bookings.* ,hotels.*').where("user_id = ?" , current_user.id).where("checkOutDate < ?" , Time.new.to_date).order(:checkInDate).paginate(:page =>params[:page] ,  :per_page => 5)
+        @onGoingBookings = Booking.joins(:hotel).select('bookings.* ,hotels.*').where("user_id = ?" , current_user.id).where("checkInDate <= ?" , Time.new.to_date).where("checkOutDate >= ?" , Time.new.to_date).order(:checkInDate).paginate(:page => params[:page] , :per_page => 2)
+        @futureBookings = Booking.joins(:hotel).select('bookings.* ,hotels.*').where("user_id = ?" , current_user.id).where("checkInDate > ?" , Time.new.to_date).order(:checkInDate).paginate(:page =>params[:page] ,  :per_page => 5)
     end
 
     def logout
