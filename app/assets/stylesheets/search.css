@@ -14,6 +14,12 @@
     border:1px solid var(--accent);   
     margin-block:20px;
 }
+.search_results_num{
+    width: 80%;
+    margin-inline:auto;
+    font-size:1.5rem;
+    margin-top:15px;
+}
 
 .search_results_row .room_container {
     padding:5px;
@@ -38,6 +44,18 @@
     border-bottom: 1px solid black;
 }
 
+.search_results_row_title{
+    display: flex;
+    justify-content: space-between;
+    align-items: center 
+}
 
+.rating_div{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    flex-direction: column;
+    font-size: 1rem;
+}
 
 

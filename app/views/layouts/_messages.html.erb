@@ -1,12 +1,13 @@
+<%= javascript_include_tag "alert.js", "data-turbo-track": "reload", defer: true %>
 <div class="row">
   <div class="col-xs-10 col-xs-offset-1">
     <% flash.each do |name, msg| %>
-      <div class='alert alert-<%="#{name}" %>'>
-        <a href="#" class="close" data-dismiss="alert">
-          &#215;
-        </a>
+      <div class='alert <%="#{name}" %>'>
+       <span class="closebtn">&times;</span>  
         <%= msg %>
       </div>
+</div>
+
     <% end %>  
   </div>
 </div>
