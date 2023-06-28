@@ -4,7 +4,7 @@
         <p>You can view your past , current and future bookings here.</>
     </div>
     <div class="userProfile_container">
-        <div class="profileImg"></div>
+        <%= image_tag(current_user.avatar, :class => "profileImg") %>
         <p>Name: <%= current_user.name%></p>
         <p>Email: <%= current_user.email%></p>
     </div>

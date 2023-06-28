@@ -25,6 +25,7 @@
     width: 200px;
     background-image: url('userProfile.png');
     background-size: cover;
+    border-radius: 50%;
 }
 
 .dashboard_row_container{

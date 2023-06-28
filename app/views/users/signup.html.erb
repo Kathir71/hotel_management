@@ -15,6 +15,9 @@
             <%= f.label :password%>
             <%= f.password_field :password , placeholder: "Password"%>
         </div>
+        <div class="row">
+            <%= f.file_field :avatar %>
+        </div>
         <%= f.submit "Sign up" , :class => 'login_btn'%>
     </div>
     <%end%>
