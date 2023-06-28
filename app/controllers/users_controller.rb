@@ -25,6 +25,7 @@ class UsersController < ApplicationController
 
     def handleSignup
         @user = User.new(params.require(:users).permit(:name , :email , :password , :avatar))
+        debugger
     if @user.save
         session[:user_id] = @user.id
         flash[:success] = "User Signed up successfully."

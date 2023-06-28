@@ -23,9 +23,21 @@
     font-size: 1.2rem;
 }
 
-.tbooking_form{
+.book_preview{
     width: 90%;
+    margin-inline: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-bottom:20px;
+}
+.tbooking_form{
     margin-inline:auto;
     padding:1rem;
-    font-size:1.4rem;
+    font-size:1.2rem;
+}
+
+.roomImg{
+    width: 500px;
+    height: 500px;
 }

@@ -4,4 +4,6 @@ class Room < ApplicationRecord
     validates :totalAvailable , presence:true , numericality:{only_integer:true}
     belongs_to :hotel
     has_many :bookings
+    has_one_attached :roomImage
+
 end

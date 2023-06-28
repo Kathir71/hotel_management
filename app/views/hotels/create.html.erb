@@ -2,7 +2,7 @@
 <%= render 'shared/errors', obj: @hotel %>
 <div class="create_form">
   <h1>Register your hotel</h1>
-  <%= form_with scope: :custom , url:'/hotel/handleCreate' , local: true ,method: :post , data: { turbo: false } do |f| %>
+  <%= form_with scope: :custom , url:'/hotel/handleCreate' , local: true ,method: :post ,multipart:true, data: { turbo: false } do |f| %>
   <%= f.label :name%>
   <%= f.text_field :name%>
   <%= f.label :address%>
@@ -11,7 +11,7 @@
   <%= f.text_field :description%>
    <div id="rooms">
    <h2>Room types</h2>
-    <div><%= render partial: "rooms_form", locals: {skill: false} %></div>
+    <div><%= render partial: "rooms_form", locals: {skill: false},multipart: true , method: :post%></div>
     </div>
     <div class="btns_container">
       <%= f.submit "Register", :class => "login_btn" %>
@@ -19,6 +19,6 @@
     </div>
   <%end%>
   <div id="new_rooms_form" style="display:none">
-    <%= render partial: "rooms_form", locals: {room: false} %>
+    <%= render partial: "rooms_form", locals: {room: false} , method: :post%>
   </div>
 </div>

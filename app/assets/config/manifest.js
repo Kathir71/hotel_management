@@ -4,4 +4,6 @@
 
 //= link_tree ../builds
 //= link alert.js
-//link application.js
+//= link application.js
+//= link test.js
+

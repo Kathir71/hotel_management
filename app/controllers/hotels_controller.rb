@@ -10,17 +10,20 @@ class HotelsController < ApplicationController
     def handleCreate
         @hotel = Hotel.new(params.require(:custom).permit(:name , :address , :description))
         @hotel.manager_id = current_manager.id
+        debugger
         if @hotel.save
             numRooms = params["roomType"].length 
             roomTypes = params["roomType"]
             roomCosts = params["roomCost"]
             roomAvailables = params["roomAvailable"]
+            roomImages = params["roomImages"]
             for i in 1..numRooms do
             @room = Room.new()
             @room.roomType = roomTypes[i-1]
             @room.cost = roomCosts[i-1]
             @room.totalAvailable = roomAvailables[i-1]
             @room.hotel_id = @hotel.id
+            @room.roomImage = roomImages[i-1]
             if !@room.save
                 flash[:danger] = "Room data not valid";
             end
@@ -106,6 +109,7 @@ class HotelsController < ApplicationController
     @checkInDate = params[:roomDetails][:checkInDate]
     @checkOutDate = params[:roomDetails][:checkOutDate]
     @hotelId = params[:roomDetails][:hotelId]
+    @roomImage = Room.find(@room["roomId"]).roomImage
     @hotel = Hotel.find(@hotelId);
     render 'book'
     end
