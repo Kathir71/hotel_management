@@ -1,7 +1,7 @@
-<%# <%= render 'shared/errors', obj: @user %> 
+<%= render 'shared/errors', obj: @user %>
 <div class="login_form">
     <h1>User Signup</h1>
-    <%= form_with scope: :users , url:'/user/signup' , local: true ,method: :post , data: { turbo: false } do |f| %>
+    <%= form_with scope: :users , url:user_signup_path , local: true ,method: :post , data: { turbo: false } do |f| %>
     <div class="input_container">
         <div class="row">
             <%= f.label :name%>

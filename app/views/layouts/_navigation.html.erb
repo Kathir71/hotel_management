@@ -13,6 +13,7 @@
       <li><%= button_to "Log Out" , hotelManager_logout_path , data:{ turbo_method: :delete} ,method: :delete %> </li>
       <%elsif manager_logged_in?%>
       <li><%= link_to "Register your Hotel" , hotel_create_path%></li>
+      <li><%= button_to "Log Out" , hotelManager_logout_path , data:{ turbo_method: :delete} ,method: :delete %> </li>
       <%end%>
       <% if user_logged_in?%>
       <li><%= link_to "Your bookings" , user_dashboard_path %></li>

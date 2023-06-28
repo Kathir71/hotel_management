@@ -19,7 +19,7 @@ class ManagersController < ApplicationController
             flash[:success] = "Manager logged in successfully"
             redirect_to "/"
         else
-            flash.now[:alert] = "Invalid credentials"
+            flash.now[:danger] = "Invalid credentials"
             render 'login'
         end
     end
@@ -53,7 +53,6 @@ class ManagersController < ApplicationController
     end
 
     def handleIntervalSearch
-        # debugger
 
         checkInDate = params[:query]["checkInDate"]
         checkOutDate = params[:query]["checkOutDate"]

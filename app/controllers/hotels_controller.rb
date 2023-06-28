@@ -41,14 +41,26 @@ class HotelsController < ApplicationController
             combinedObj["hotel"] = hotel
             combinedObj["rooms"] = Room.where("hotel_id = ?" , hotel.id);
             combinedObj["manager"] = Manager.find(hotel.manager_id)
+            combinedObj["ratings"] = Rating.joins(:booking).select('bookings.* , ratings.*').where('bookings.hotel_id = ?' , hotel.id);
             roomAvailability = checkAvailability(combinedObj["rooms"] , @checkInDate , @checkOutDate)
+            #associate rating with hotel or the room??
             combinedObj["availability"] = roomAvailability
+            if combinedObj["ratings"].length != 0 
+                avgRating = 0
+                combinedObj["ratings"].each do |rating|
+                     avgRating += rating.rating.to_i
+                end
+                combinedObj["avgRating"] = avgRating.to_f / combinedObj["ratings"].length
+            else
+                combinedObj["avgRating"] = "No ratings available"
+            end
             @finalArr << combinedObj
         end
         #filters
         onlyAvailable = params[:query]["onlyAvailable"].to_i
         sortByprice = params[:query]["sortByprice"].to_i
         sortByAvailability = params[:query]["sortByAvailability"].to_i
+        sortByRating = params[:query]["sortByRating"].to_i
         if onlyAvailable == 1
             @finalArr = filter_only_available(@finalArr)
         end
@@ -59,6 +71,10 @@ class HotelsController < ApplicationController
 
         if sortByAvailability == 1
             @finalArr = sort_based_on_availability(@finalArr)
+        end
+
+        if sortByRating == 1
+            @finalArr = sort_based_on_rating(@finalArr)
         end
 
         lowerBound = params[:query]["lowerBound"]
@@ -219,6 +235,39 @@ class HotelsController < ApplicationController
                 1
             elsif xMinCost < yMinCost
                 -1
+            else
+                0
+            end
+        end
+        arr
+    end
+
+    def sort_based_on_rating(arr)
+        arr.sort! do |x , y|
+            #average rating of all rooms of the hotel 
+            xAvg = 0
+            yAvg = 0
+            xSum = 0;
+            xNum = x["ratings"].length
+            x["ratings"].each do |rating|
+                xSum += rating.rating.to_i
+            end
+            if xNum != 0
+            xAvg = xSum / xNum
+            end
+            ySum = 0;
+            yNum = y["ratings"].length
+            y["ratings"].each do |rating|
+                ySum += rating.rating.to_i
+            end
+            if yNum != 0
+            yAvg = ySum / yNum
+            end
+
+            if xAvg > yAvg
+                -1
+            elsif xAvg < yAvg
+                1
             else
                 0
             end

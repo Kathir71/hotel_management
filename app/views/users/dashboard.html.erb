@@ -21,6 +21,7 @@
         <li>Total price</li>
         <li>Check in date</li>
         <li>Check out date</li>
+        <li>Rating</li>
         </div>
  
 <%= render 'booking', obj: @onGoingBookings %>
@@ -40,6 +41,7 @@
 <li>Total price</li>
 <li>Check in date</li>
 <li>Check out date</li>
+<li>Rating</li>
 </div>
  <div >
 </div>
@@ -60,8 +62,9 @@
 <li>Total price</li>
 <li>Check in date</li>
 <li>Check out date</li>
+<li>Rating</li>
 </div>
-<%= render 'booking', obj: @futureBookings %>
+<%= render 'upcomingbooking', obj: @futureBookings %>
   <%= will_paginate @futureBookings%>
     <%end%>
 </div>

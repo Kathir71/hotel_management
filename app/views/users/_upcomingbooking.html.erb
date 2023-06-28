@@ -1,0 +1,11 @@
+<% obj.each do |booking|%>
+    <div class="dashboard_row">
+        <p><%= booking.name%></p>
+        <p><%= booking.roomType %></p>
+        <p><%= booking.numRoomsBooked %></p>
+        <p><%= booking.price %></p>
+        <p><%= booking.checkInDate %></p>
+        <p><%= booking.checkOutDate %></p>
+    </div>
+    <%end%>
+  

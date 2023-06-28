@@ -5,7 +5,7 @@
 <div class="search_results_container">
 <% @finalArr.each do |hotel|%>
 <div class = "search_results_row">
-  <h2><%= hotel["hotel"].name%></h2>
+  <h2><%= hotel["hotel"].name%> Average Rating: <%= hotel["avgRating"] %></h2>
       <p>Address: <%= hotel["hotel"].address%>
       <p>Description: <%= hotel["hotel"].description%>
       <h3>Rooms</h3>

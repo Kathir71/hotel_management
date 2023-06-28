@@ -8,4 +8,5 @@ class Booking < ApplicationRecord
     belongs_to :user 
     belongs_to :hotel
     belongs_to :room
+    has_one :rating
 end

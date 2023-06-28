@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   post '/user/login', to: "users#handleLogin"
   post '/user/signup', to: "users#handleSignup"
   delete '/user/logout', to:"users#logout"
+  post '/user/rate', to:"users#ratings"
 
   get '/hotelManager/login', to: "managers#login"
   get '/hotelManager/signup', to: "managers#signup"
