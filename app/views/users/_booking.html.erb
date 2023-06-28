@@ -8,7 +8,7 @@
         <p><%= booking.checkOutDate %></p>
          <div>
              <% if @bookings.find{|ubooking| ubooking.id == booking.id}%>
-             <p>You rated your stay a <%= @bookings.find{|ubooking| ubooking}.rating.rating%></p>
+             <p>You rated your stay a <%= @bookings.find{|ubooking| ubooking.id == booking.id}.rating.rating%></p>
              <%else%>
                      <div class="rating_form">
                          <%= form_with scope: :rating , url:user_rate_path , local: true ,method: :post , data: { turbo: false } do |f| %>

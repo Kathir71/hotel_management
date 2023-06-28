@@ -1,11 +1,17 @@
 <% if @finalArr.length == 0%>
 <p>No results found , ensure if you are giving the correct location or name</p>
 <%else%>
-<p><%= @finalArr.length %> hotel/s matched your search</p>
+<p class = "search_results_num"><%= @finalArr.length %> hotel/s matched your search</p>
 <div class="search_results_container">
 <% @finalArr.each do |hotel|%>
 <div class = "search_results_row">
-  <h2><%= hotel["hotel"].name%> Average Rating: <%= hotel["avgRating"] %></h2>
+<div class="search_results_row_title">
+  <h2><%= hotel["hotel"].name%> </h2>
+  <div class="rating_div">
+    <p>Average Rating: <%= hotel["avgRating"] %></p>
+    <% if hotel["ratings"].length > 0 %><p>Number of users rated : <%= hotel["ratings"].length %></p><%end%>
+  </div>
+</div>
       <p>Address: <%= hotel["hotel"].address%>
       <p>Description: <%= hotel["hotel"].description%>
       <h3>Rooms</h3>

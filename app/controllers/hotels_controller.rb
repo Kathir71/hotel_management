@@ -21,7 +21,9 @@ class HotelsController < ApplicationController
             @room.cost = roomCosts[i-1]
             @room.totalAvailable = roomAvailables[i-1]
             @room.hotel_id = @hotel.id
-            @room.save
+            if !@room.save
+                flash[:danger] = "Room data not valid";
+            end
             end
             flash[:success] ="Hotels and rooms created successfully"
             redirect_to '/'
@@ -135,7 +137,7 @@ class HotelsController < ApplicationController
             redirect_to root_path
         else
             # debugger
-            flash[:alert] = "Some error has happened"
+            flash[:danger] = "Some error has happened"
             redirect_to root_path
         end
     end
@@ -302,7 +304,7 @@ class HotelsController < ApplicationController
         @checkOutDate = params[:query]["checkOutDate"]
         currentDate = Time.new.to_date
         if !(@checkInDate.to_date >= currentDate && @checkOutDate >= @checkInDate)
-            flash[:alert] = "Invalid dates"
+            flash[:danger] = "Invalid dates"
             redirect_to root_path
         end
      end

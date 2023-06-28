@@ -40,6 +40,11 @@
     grid-template-columns: 1.5fr 1fr 1fr 1fr 1fr 1fr 1fr;
  }
 
+ .up_dashboard_header{
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr 1fr 1fr 1fr;
+ }
+
  .dashboard_header > li {
     list-style-type: none;
     font-weight: 2rem;
@@ -51,6 +56,17 @@
     grid-template-columns: 1.5fr 1fr 1fr 1fr 1fr 1fr 1fr;
     font-size:1.15rem;
 }
+
+.up_dashboard_row{
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr 1fr 1fr 1fr;
+}
+.up_dashboard_header > li {
+    list-style-type: none;
+    font-weight: 2rem;
+    font-size:1.3rem;
+ }
+
 
 .dashboard_row_container > h2{
     font-weight: bolder;

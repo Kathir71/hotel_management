@@ -3,5 +3,5 @@
 //= link application.scss
 
 //= link_tree ../builds
-//= link application.js
-
+//= link alert.js
+//link application.js
