@@ -2,6 +2,7 @@ class HotelsController < ApplicationController
     before_action :require_manager , only: [:create , :handleCreate] #add more validators
     before_action :require_user , only: [:book , :handleBooking]
     before_action :require_valid_dates , only:[:search]
+    before_action :require_valid_params , only:[:handleCreate]
 
     def create
         @hotel = Hotel.new
@@ -120,6 +121,11 @@ class HotelsController < ApplicationController
         checkOutDate = params[:booking][:checkOutDate].to_date
         numDaysStay = (checkOutDate - checkInDate).to_i + 1
         userRequest = params[:booking][:numRoomsBooked].to_i
+        if userRequest <= 0
+            flash[:danger] = "Invalid number of rooms requested"
+            redirect_to root_path
+            return
+        end
         @booking = Booking.new()
         @booking.user_id = current_user.id
         @booking.room_id = params[:booking][:roomId]
@@ -142,7 +148,6 @@ class HotelsController < ApplicationController
             flash[:success] = "Rooms booked successfully"
             redirect_to root_path
         else
-            # debugger
             flash[:danger] = "Some error has happened"
             redirect_to root_path
         end
@@ -151,9 +156,9 @@ class HotelsController < ApplicationController
     def checkAvailability (rooms , checkInDate , checkOutDate)
         availabilityArray = []
         rooms.each do |room|
-            bookingsInInterval = Booking.where("room_id = ?" , room.id).where("checkInDate >= ?" , checkInDate).where("checkInDate <= ?" , checkOutDate).or(
-                Booking.where("checkOutDate >= ?" , checkInDate ).where("checkOutDate <= ?" ,checkOutDate ).where("room_id = ?" , room.id).or(
-                    Booking.where("room_id = ?" , room.id).where("checkInDate <= ?" , checkInDate).where("checkOutDate >= ?" , checkOutDate)
+            bookingsInInterval = Booking.where("room_id = ?" , room.id).where("isCancelled = ?" , false).where("checkInDate >= ?" , checkInDate).where("checkInDate <= ?" , checkOutDate).or(
+                Booking.where("checkOutDate >= ?" , checkInDate ).where("checkOutDate <= ?" ,checkOutDate ).where("room_id = ?" , room.id).where("isCancelled = ?" , false).or(
+                    Booking.where("room_id = ?" , room.id).where("checkInDate <= ?" , checkInDate).where("checkOutDate >= ?" , checkOutDate).where("isCancelled = ?" , false)
                 )
             )
             numBooked = 0
@@ -166,9 +171,9 @@ class HotelsController < ApplicationController
     end
 
     def check_room_availability(roomId , checkInDate , checkOutDate)
-            bookingsInInterval = Booking.where("room_id = ?" , roomId).where("checkInDate >= ?" , checkInDate).where("checkInDate <= ?" , checkOutDate).or(
-                Booking.where("checkOutDate >= ?" , checkInDate ).where("checkOutDate <= ?" ,checkOutDate ).where("room_id = ?" , roomId).or(
-                    Booking.where("room_id = ?" , roomId).where("checkInDate <= ?" , checkInDate).where("checkOutDate >= ?" , checkOutDate)
+            bookingsInInterval = Booking.where("room_id = ?" , roomId).where("isCancelled = ?" , false).where("checkInDate >= ?" , checkInDate).where("checkInDate <= ?" , checkOutDate).or(
+                Booking.where("checkOutDate >= ?" , checkInDate ).where("checkOutDate <= ?" ,checkOutDate ).where("room_id = ?" , roomId).where("isCancelled = ?",false).or(
+                    Booking.where("room_id = ?" , roomId).where("checkInDate <= ?" , checkInDate).where("checkOutDate >= ?" , checkOutDate).where("isCancelled = ?",false)
                 )
             )
             numBooked = 0
@@ -182,7 +187,6 @@ class HotelsController < ApplicationController
     def within_price? (obj , lowerBound  , upperBound )
         val = false
         obj["rooms"].each do |room|
-            # debugger
             if room.cost >= lowerBound && room.cost <= upperBound
                 val = true
             end
@@ -313,6 +317,36 @@ class HotelsController < ApplicationController
             flash[:danger] = "Invalid dates"
             redirect_to root_path
         end
+     end
+
+     def require_valid_params
+            numRooms = params["roomType"].length 
+            roomTypes = params["roomType"]
+            roomCosts = params["roomCost"]
+            roomAvailables = params["roomAvailable"]
+            roomImages = params["roomImages"]
+            roomCostsCheck = false;
+            roomCosts.each do |cost|
+                if cost < 0
+                    roomCostsCheck = true;
+                end
+            end
+
+            roomAvailablesCheck = false;
+            roomAvailables.each do |available|
+                if available <= 0 || available.is_a?(Float)
+                    roomAvailablesCheck = true;
+                end
+            end
+            if roomCosts.length != numRooms || roomAvailables.length != numRooms || roomImages.length != numRooms
+                flash[:danger] = "Missing parameters"
+                redirect_to root_path
+            end
+
+            if roomCostsCheck || roomAvailablesCheck
+                flash[:danger] = "Invalid parameters"
+                redirect_to root_path
+            end
      end
 
 end

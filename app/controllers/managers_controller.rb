@@ -44,13 +44,13 @@ class ManagersController < ApplicationController
 
     def dashboard
         @hotel = current_manager.hotel;
-        @hotelBookings = @hotel.bookings.joins(:user , :room).select('bookings.*' , 'users.*' , 'rooms.*');
+        @hotelBookings = @hotel.bookings.joins(:user , :room).select('bookings.*' , 'users.*' , 'rooms.*').order(checkInDate: :desc);
     end
 
     def handleUserSearch
       query = params[:query]["queryEmail"].downcase 
       user = User.where("email = ?" , query).first
-      @searchResults = Booking.joins(:user , :room).select('bookings.*' , 'users.*' , 'rooms.*').where("user_id = ?" , user.id)
+      @searchResults = Booking.joins(:user , :room).select('bookings.*' , 'users.*' , 'rooms.*').where("user_id = ?" , user.id).where("bookings.hotel_id = ?" , current_manager.hotel.id).order(checkInDate: :desc)
       render 'search'
     #   respond_to do |format|
     #     format.js { render partial: 'managers/result' }
@@ -65,18 +65,18 @@ class ManagersController < ApplicationController
         checkOutDate = params[:query]["checkOutDate"]
         @hotel = current_manager.hotel;
         if checkInDate == "" && checkOutDate ==""
-            @searchResults = @hotel.bookings.joins(:user , :room).select('bookings.*' , 'users.*' , 'rooms.*');
+            @searchResults = @hotel.bookings.joins(:user , :room).select('bookings.*' , 'users.*' , 'rooms.*').where("bookings.hotel_id = ?" ,@hotel.id );
         elsif checkInDate == ""
             #users leaving before a given date
-            @searchResults = @hotel.bookings.joins(:user , :room).select('bookings.*' , 'users.*' , 'rooms.*').where("checkOutDate <= ?" , checkOutDate.to_date)
+            @searchResults = @hotel.bookings.joins(:user , :room).select('bookings.*' , 'users.*' , 'rooms.*').where("checkOutDate <= ?" , checkOutDate.to_date).order(:checkInDate).where("bookings.hotel_id = ?" , @hotel.id);
 
         elsif checkOutDate == ""
             #users arriving after a certain date
-            @searchResults = @hotel.bookings.joins(:user , :room).select('bookings.*' , 'users.*' , 'rooms.*').where("checkInDate >= ?" , checkInDate.to_date)
+            @searchResults = @hotel.bookings.joins(:user , :room).select('bookings.*' , 'users.*' , 'rooms.*').where("checkInDate >= ?" , checkInDate.to_date).order(:checkInDate).where("bookings.hotel_id = ?"  ,@hotel.id)
 
         else
             #users in the interval
-            @searchResults = @hotel.bookings.joins(:user , :room).select('bookings.*' , 'users.*' , 'rooms.*').where("checkInDate >= ?" , checkInDate.to_date).where("checkOutDate <= ?" , checkOutDate.to_date)
+            @searchResults = @hotel.bookings.joins(:user , :room).select('bookings.*' , 'users.*' , 'rooms.*').where("checkInDate >= ?" , checkInDate.to_date).where("checkOutDate <= ?" , checkOutDate.to_date).where("hotel_id = ?" , @hotel.id).order(:checkInDate)
         end
       render 'search'
         
@@ -94,9 +94,13 @@ class ManagersController < ApplicationController
     end
 
     def update
-        # debugger
         roomId = params[:room]["id"].to_i
         newCost = params[:room]["cost"].to_f
+        if  newCost <= 0
+            flash[:danger] = "Invalid cost provided"
+            redirect_to hotelManager_dashboard_path
+            return
+        end
         @room = Room.find(roomId)
         @room.cost = newCost
         @hotel = current_manager.hotel

@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   get '/user/edit', to:"users#edit"
   post '/user/update',to:"users#update"
   post '/user/rate', to:"users#ratings"
+  post '/user/cancelBooking' , to:"users#cancelBooking"
 
   get '/hotelManager/login', to: "managers#login"
   get '/hotelManager/signup', to: "managers#signup"

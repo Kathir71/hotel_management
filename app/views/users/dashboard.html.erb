@@ -67,3 +67,20 @@
   <%= will_paginate @futureBookings%>
     <%end%>
 </div>
+
+<%if @cancelledBookings.length != 0%>
+<div class="dashboard_row_container">
+<h2 style="color:red">Cancelled bookings</h2>
+<div class="up_dashboard_header">
+<li>Hotel</li>
+<li>Room Type</li>
+<li>Number of rooms booked</li>
+<li>Total price</li>
+<li>Check in date</li>
+<li>Check out date</li>
+</div>
+<%= render 'cancelledbooking', obj: @cancelledBookings %>
+  <%= will_paginate @cancelledBookings%>
+</div>
+
+<%end%>

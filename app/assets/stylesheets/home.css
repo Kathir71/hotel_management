@@ -198,9 +198,10 @@
 .info_sec{
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
-  width: 80%;
-  padding:2rem;
+  justify-content: space-between;
+  width: 75%;
+  margin-inline:auto;
+  margin-block:20px;
 }
 
 .info_sec_content{

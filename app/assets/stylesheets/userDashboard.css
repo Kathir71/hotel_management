@@ -34,6 +34,7 @@
     margin-inline: auto;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     border-radius: 15px;
+    margin-block:15px;
 }
  .dashboard_header{
     display: grid;
@@ -58,6 +59,10 @@
 }
 
 .up_dashboard_row{
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr 1fr 1fr 1fr;
+}
+.can_dashboard_row{
     display: grid;
     grid-template-columns: 1.5fr 1fr 1fr 1fr 1fr 1fr;
 }

@@ -15,25 +15,26 @@
   
       <div class="searchElements">
       <h1>Welcome Manager <span style="color:#c374be;"><%= current_manager.name %></span></h1>
-      <div class="userSearch">
-      <h2>Search for a user</h2>
-        <%= form_with scope: :query , url:hotelManager_search_path , data: {remote:true} do |f|%>
-          <%= f.text_field :queryEmail , placeholder:"Enter the email of the user to search"%>
-            <%= f.submit "Search User", :class => 'right_col_btn'%>
-              <%end%>
-      </div>
-      <div class="intervalSearch">
-      <h2>Search bookings in a time interval</h2>
-        <%= form_with scope: :query , url:hotelManager_intervalSearch_path, data: { remote: true } do |f| %>
-  
-          <%= f.label :checkInDate%>
-            <%= f.date_field :checkInDate%>
-              <%= f.label :checkOutDate%>
-                <%= f.date_field :checkOutDate%>
-                  <p>
-                    <%= f.submit "Search bookings", :class => 'right_col_btn' %>
-                  </p>
-                  <%end%>
+      <div class="search_forms">
+        <div class="userSearch">
+        <h2>Search for a user</h2>
+          <%= form_with scope: :query , url:hotelManager_search_path , data: {remote:true} do |f|%>
+            <%= f.text_field :queryEmail , placeholder:"Enter the email of the user to search"%>
+              <%= f.submit "Search User", :class => 'right_col_btn'%>
+                <%end%>
+        </div>
+        <div class="intervalSearch">
+        <h2>Search bookings in a time interval</h2>
+          <%= form_with scope: :query , url:hotelManager_intervalSearch_path, data: { remote: true } do |f| %>
+            <%= f.label :checkInDate%>
+              <%= f.date_field :checkInDate%>
+                <%= f.label :checkOutDate%>
+                  <%= f.date_field :checkOutDate%>
+                    <p>
+                      <%= f.submit "Search bookings", :class => 'right_col_btn' %>
+                    </p>
+                    <%end%>
+        </div>
       </div>
     </div>
 </div>
@@ -50,6 +51,7 @@
     <li>Number of rooms</li>
     <li>CheckIn</li>
     <li>CheckOut</li>
+    <li>Cancelled</li>
     </div>
  
         <%@hotelBookings.each do |booking|%>
@@ -65,6 +67,8 @@
             <p><%= booking.checkInDate%>
             </p>
             <p><%= booking.checkOutDate%>
+            </p>
+            <p><%= booking.isCancelled%>
             </p>
           </div>
             <%end%>

@@ -10,6 +10,7 @@
         <li>Number of rooms</li>
         <li>CheckIn</li>
         <li>CheckOut</li>
+        <li>isCancelled</li>
         </div>
             <%@searchResults.each do |booking|%>
               <div class="booking_row">
@@ -24,6 +25,8 @@
                 <p><%= booking.checkInDate%>
                 </p>
                 <p><%= booking.checkOutDate%>
+                </p>
+                <p><%= booking.isCancelled%>
                 </p>
               </div>
                 <%end%>

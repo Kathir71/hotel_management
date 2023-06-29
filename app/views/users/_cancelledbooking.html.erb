@@ -1,15 +1,11 @@
 <% obj.each do |booking|%>
-    <div class="up_dashboard_row">
+    <div class="can_dashboard_row">
         <p><%= booking.name%></p>
         <p><%= booking.roomType %></p>
         <p><%= booking.numRoomsBooked %></p>
         <p><%= booking.price %></p>
         <p><%= booking.checkInDate %></p>
         <p><%= booking.checkOutDate %></p>
-        <p><%= button_to "Cancel booking" ,
-                user_cancelBooking_path(:bookingDetails =>{:bookingId => booking.id }),
-                data: { 'turbo-method' => :post }
-                %></p>
     </div>
     <%end%>
   
