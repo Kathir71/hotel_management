@@ -12,8 +12,8 @@ class UsersController < ApplicationController
     def handleLogin
         loginEmail = params[:users]["email"]
         loginPassword = params[:users]["password"]
-        @user = User.where("email = ?" , loginEmail.downcase).where("password = ?" ,loginPassword).first
-        if @user
+        @user = User.where("email = ?" , loginEmail.downcase).first
+        if @user && @user.authenticate(loginPassword)
             session[:user_id] = @user.id
             flash[:success] = "User logged in successfully"
             redirect_to "/"
@@ -25,7 +25,6 @@ class UsersController < ApplicationController
 
     def handleSignup
         @user = User.new(params.require(:users).permit(:name , :email , :password , :avatar))
-        debugger
     if @user.save
         session[:user_id] = @user.id
         flash[:success] = "User Signed up successfully."

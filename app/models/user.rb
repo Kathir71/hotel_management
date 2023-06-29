@@ -10,5 +10,6 @@ class User < ApplicationRecord
   validates :password , presence: true
   has_many :bookings
   has_one_attached :avatar
+  has_secure_password
 
 end

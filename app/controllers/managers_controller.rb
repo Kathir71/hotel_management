@@ -12,9 +12,9 @@ class ManagersController < ApplicationController
     def handleLogin
         loginEmail = params[:managers]["email"]
         loginPassword = params[:managers]["password"]
-        @manager = Manager.where("email = ?" , loginEmail.downcase).where("password = ?" ,loginPassword).first
+        @manager = Manager.where("email = ?" , loginEmail.downcase).first
         puts @manager
-        if @manager
+        if @manager && @manager.authenticate(loginPassword)
             session[:manager_id] = @manager.id
             flash[:success] = "Manager logged in successfully"
             redirect_to "/"

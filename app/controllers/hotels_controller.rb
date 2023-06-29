@@ -10,7 +10,6 @@ class HotelsController < ApplicationController
     def handleCreate
         @hotel = Hotel.new(params.require(:custom).permit(:name , :address , :description))
         @hotel.manager_id = current_manager.id
-        debugger
         if @hotel.save
             numRooms = params["roomType"].length 
             roomTypes = params["roomType"]
@@ -137,6 +136,7 @@ class HotelsController < ApplicationController
             return
         end
        if @booking.save
+            BookingMailer.with(user:current_user , hotel:Hotel.find(@booking.hotel_id) , booking_details:@booking).new_booking_mailer.deliver_later
             flash[:success] = "Rooms booked successfully"
             redirect_to root_path
         else

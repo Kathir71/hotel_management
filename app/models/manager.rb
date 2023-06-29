@@ -10,4 +10,5 @@ class Manager < ApplicationRecord
   validates :phoneNumber , presence: true , length:{minimum:7 , maximum:10}
 
   has_one :hotel
+  has_secure_password
 end

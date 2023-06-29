@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   get '/user/dashboard', to: "users#dashboard"
   post '/user/login', to: "users#handleLogin"
   post '/user/signup', to: "users#handleSignup"
-  delete '/user/logout', to:"users#logout"
+  get '/user/logout', to:"users#logout"
   post '/user/rate', to:"users#ratings"
 
   get '/hotelManager/login', to: "managers#login"
@@ -22,7 +22,7 @@ Rails.application.routes.draw do
   post '/hotelManager/signup', to: "managers#handleSignup"
   post '/hotelManager/search', to: "managers#handleUserSearch"
   post '/hotelManager/intervalSearch', to: "managers#handleIntervalSearch"
-  delete '/hotelManager/logout', to:"managers#logout"
+  get '/hotelManager/logout', to:"managers#logout"
 
 
   get '/hotel/create', to:"hotels#create"
