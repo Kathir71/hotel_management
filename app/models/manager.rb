@@ -6,7 +6,7 @@ class Manager < ApplicationRecord
                       length: { maximum: 105 },
                       format: { with: VALID_EMAIL_REGEX }
   validates :name , presence: true
-  validates :password , presence: true
+  validates :password_digest , presence: true
   validates :phoneNumber , presence: true , length:{minimum:7 , maximum:10}
 
   has_one :hotel

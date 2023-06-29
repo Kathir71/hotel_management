@@ -1,5 +1,5 @@
 class HotelsController < ApplicationController
-    before_action :require_manager , only: [:create , :handleCreate]
+    before_action :require_manager , only: [:create , :handleCreate] #add more validators
     before_action :require_user , only: [:book , :handleBooking]
     before_action :require_valid_dates , only:[:search]
 
@@ -69,9 +69,6 @@ class HotelsController < ApplicationController
             @finalArr = filter_only_available(@finalArr)
         end
 
-        if sortByprice == 1
-            @finalArr = sort_based_on_cost(@finalArr)
-        end
 
         if sortByAvailability == 1
             @finalArr = sort_based_on_availability(@finalArr)
@@ -79,6 +76,11 @@ class HotelsController < ApplicationController
 
         if sortByRating == 1
             @finalArr = sort_based_on_rating(@finalArr)
+        end
+
+        #maxPri given if set
+        if sortByprice == 1
+            @finalArr = sort_based_on_cost(@finalArr)
         end
 
         lowerBound = params[:query]["lowerBound"]

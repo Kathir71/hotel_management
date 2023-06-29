@@ -1,6 +1,6 @@
 class ManagersController < ApplicationController
     before_action :require_not_user 
-    before_action :require_manager , only: [:dashboard]
+    before_action :require_manager , only: [:dashboard , :handleUserSearch , :handleIntervalSearch , :logout]
     def signup
         @manager = Manager.new
     end
@@ -13,7 +13,6 @@ class ManagersController < ApplicationController
         loginEmail = params[:managers]["email"]
         loginPassword = params[:managers]["password"]
         @manager = Manager.where("email = ?" , loginEmail.downcase).first
-        puts @manager
         if @manager && @manager.authenticate(loginPassword)
             session[:manager_id] = @manager.id
             flash[:success] = "Manager logged in successfully"
@@ -25,6 +24,14 @@ class ManagersController < ApplicationController
     end
 
     def handleSignup
+        email = params[:managers]["email"]
+        userExist = User.where("email = ?" , email).first;
+        if userExist
+            flash.now[:danger] = "You are already a user here.Use a seperate account for manager"
+            @manager = Manager.new();
+            render 'signup'
+            return
+        end
         @manager = Manager.new(params.require(:managers).permit(:name , :employee_id , :phoneNumber , :email ,:password))
     if @manager.save
         session[:manager_id] =@manager.id
@@ -79,6 +86,28 @@ class ManagersController < ApplicationController
     session[:manager_id] = nil
     flash[:success] = "You have successfully logged out"
     redirect_to root_path    
+    end
+
+    def edit
+        @hotel = current_manager.hotel
+        @rooms = @hotel.rooms
+    end
+
+    def update
+        # debugger
+        roomId = params[:room]["id"].to_i
+        newCost = params[:room]["cost"].to_f
+        @room = Room.find(roomId)
+        @room.cost = newCost
+        @hotel = current_manager.hotel
+        @rooms = @hotel.rooms
+        if @room.save
+            flash.now[:success] = "Room price has been updated"
+            render 'edit'
+        else
+            flash.now[:danger] = "Invalid cost provided"
+            render 'edit'
+        end
     end
 
     private

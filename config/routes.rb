@@ -12,7 +12,9 @@ Rails.application.routes.draw do
   get '/user/dashboard', to: "users#dashboard"
   post '/user/login', to: "users#handleLogin"
   post '/user/signup', to: "users#handleSignup"
-  get '/user/logout', to:"users#logout"
+  get '/user/logout', to:"users#logout" #for styling
+  get '/user/edit', to:"users#edit"
+  post '/user/update',to:"users#update"
   post '/user/rate', to:"users#ratings"
 
   get '/hotelManager/login', to: "managers#login"
@@ -23,6 +25,8 @@ Rails.application.routes.draw do
   post '/hotelManager/search', to: "managers#handleUserSearch"
   post '/hotelManager/intervalSearch', to: "managers#handleIntervalSearch"
   get '/hotelManager/logout', to:"managers#logout"
+  get '/hotelManager/edit' , to:"managers#edit"
+  post '/hotelManager/update' , to:"managers#update"
 
 
   get '/hotel/create', to:"hotels#create"

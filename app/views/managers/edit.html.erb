@@ -1,0 +1,14 @@
+<div class="container">
+    <h1>Edit hotel prices</h1>
+    <p>Note that the prices of already booked rooms stays the same</p>
+</div>
+    <% @rooms.each do |room|%>
+        <%= form_for(room , url:hotelManager_update_path , method: :post) do |f|%>
+        <div class="hotel_edit_form">
+        <%= f.text_field :roomType, placeholder: "Hotel name", disabled:true %>
+        <%= f.number_field :cost, placeholder: "Hotel name" %>
+        <%= f.hidden_field :id%>
+        <%= f.submit "Update Price", class: "btn btn-outline-primary"%>
+        </div>
+    <%end%>
+    <%end%>

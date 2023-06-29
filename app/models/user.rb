@@ -7,7 +7,8 @@ class User < ApplicationRecord
                       length: { maximum: 105 },
                       format: { with: VALID_EMAIL_REGEX }
   validates :name , presence: true
-  validates :password , presence: true
+  validates :password_digest , presence: true
+  validates :avatar , presence:true
   has_many :bookings
   has_one_attached :avatar
   has_secure_password

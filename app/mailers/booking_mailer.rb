@@ -4,7 +4,6 @@ class BookingMailer < ApplicationMailer
     @user = params[:user]
     @hotel = params[:hotel]
     @booking = params[:booking_details]
-    debugger
-    mail(to: @user.email, subject: "Congrats on booking in book easy")
+    mail(to: @user.email, subject: "Hurray ! Your tickets are booked.Congrats on booking in book easy")
   end
 end

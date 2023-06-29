@@ -24,7 +24,15 @@ class UsersController < ApplicationController
     end
 
     def handleSignup
+        email = params[:users]["email"]
         @user = User.new(params.require(:users).permit(:name , :email , :password , :avatar))
+        managerExist = Manager.where("email = ?" , email).first
+        if managerExist
+            @user = User.new()
+            flash.now[:danger] = "You are a manager here."
+            render 'signup'
+            return;
+        end
     if @user.save
         session[:user_id] = @user.id
         flash[:success] = "User Signed up successfully."
@@ -40,6 +48,14 @@ class UsersController < ApplicationController
         @onGoingBookings = Booking.joins(:hotel).select('bookings.* ,hotels.*').where("user_id = ?" , current_user.id).where("checkInDate <= ?" , Time.new.to_date).where("checkOutDate >= ?" , Time.new.to_date).order(:checkInDate).paginate(:page => params[:page] , :per_page => 3)
         @futureBookings = Booking.joins(:hotel).select('bookings.* ,hotels.*').where("user_id = ?" , current_user.id).where("checkInDate > ?" , Time.new.to_date).order(:checkInDate).paginate(:page =>params[:page] ,  :per_page => 3)
         @bookings = current_user.bookings.joins(:rating).select('bookings.id , ratings.rating')
+    end
+
+    def edit
+        @user = current_user
+    end
+
+    def update
+
     end
 
     def logout
