@@ -19,7 +19,7 @@
         <div class="userSearch">
         <h2>Search for a user</h2>
           <%= form_with scope: :query , url:hotelManager_search_path , data: {remote:true} do |f|%>
-            <%= f.text_field :queryEmail , placeholder:"Enter the email of the user to search"%>
+            <%= f.text_field :queryEmail , placeholder:"Enter the email of the user to search" , required:true%>
               <%= f.submit "Search User", :class => 'right_col_btn'%>
                 <%end%>
         </div>

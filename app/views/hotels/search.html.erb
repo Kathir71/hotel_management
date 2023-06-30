@@ -1,3 +1,73 @@
+<div class="search_search_form">
+  <%= form_with scope: :query , url:'/hotel/search' , local: true ,method: :post , data: { turbo: false } do |f| %>
+    <div class="msearch_input_container">
+      <div class="search_row">
+        <%= f.text_field :query , placeholder: "Search locations or hotels" , required:true , :value => @query%>
+          <label class="dropdown">
+            <div class="dd-button">
+              Sort by
+            </div>
+
+            <input type="checkbox" class="dd-input" id="test">
+
+            <ul class="dd-menu">
+              <div class="checkbox">
+                <td>
+                  <%= f.check_box :sortByprice , :checked => @sortByprice == 1%>
+                    <%= f.label :Price %>
+                </td>
+              </div>
+              <div class="checkbox">
+                <td>
+                  <%= f.check_box :sortByAvailability , :checked => @sortByAvailability == 1 %>
+                    <%= f.label :Availability %>
+                </td>
+              </div>
+             <div class="checkbox">
+                <td>
+                  <%= f.check_box :sortByRating , :checked => @sortByRating == 1%>
+                    <%= f.label :Rating %>
+                </td>
+              </div>
+
+            </ul>
+
+          </label>
+
+      </div>
+      <div class="search_row_2">
+        <div>
+          <%= f.label "Check in date" %>
+            <%= f.date_field :checkInDate , placeholder: "Check in date"  , required:true , :value => @checkInDate%>
+        </div>
+        <div>
+          <%= f.label "Check out date" %>
+            <%= f.date_field :checkOutDate , placeholder: "Check out date" , required:true , :value => @checkOutDate%>
+        </div>
+      </div>
+   </div>
+<div class="mrange_search">
+
+      <div class="price_range">
+        <div>Price range</div>
+          <%= f.number_field :lowerBound , :value => @uLowerBound%>
+          to
+          <%= f.number_field :upperBound , :value => @uUpperBound%>
+      </div>
+  <div class="checkbox">
+        <td>
+          <%= f.check_box :onlyAvailable , :checked => @onlyAvailable == 1%>
+            <%= f.label :onlyAvailable %>
+        </td>
+      </div>
+          <%= f.submit " Modify Search" , :class=> "mhome_search_button"%>
+    </div>
+
+        <div class="search_btn_container">
+    </div>
+</div>
+<%end%>
+
 <% if @finalArr.length == 0%>
 <p>No results found , ensure if you are giving the correct location or name</p>
 <%else%>
@@ -8,8 +78,26 @@
 <div class="search_results_row_title">
   <h2><%= hotel["hotel"].name%> </h2>
   <div class="rating_div">
-    <p>Average Rating: <%= hotel["avgRating"] %></p>
-    <% if hotel["ratings"].length > 0 %><p>Number of users rated : <%= hotel["ratings"].length %></p><%end%>
+    
+    <% if hotel["ratings"].length > 0 %>
+    <div class = "srating">Average Rating:
+    <div class="bh-stars" data-bh-rating=<%= hotel["avgRating"] %>>
+	<svg version="1.1" class="bh-star bh-star--1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" xml:space="preserve"><path class="outline" d="M12,4.2L14.5,9l0.2,0.5l0.5,0.1l5.5,0.8L16.8,14l-0.4,0.4l0.1,0.5l1,5.3l-5-2.5L12,17.5l-0.4,0.2l-5,2.5L7.5,15l0.1-0.5 L7.2,14l-4-3.7l5.5-0.8l0.5-0.1L9.5,9L12,4.2 M11.9,2L8.6,8.6L1,9.7l5.5,5.1L5.2,22l6.8-3.4l6.8,3.4l-1.3-7.2L23,9.6l-7.6-1L11.9,2 L11.9,2z"/><polygon class="full" points="18.8,22 12,18.6 5.2,22 6.5,14.8 1,9.7 8.6,8.6 11.9,2 15.4,8.6 23,9.6 17.5,14.7"/><polyline class="left-half" points="12,18.6 5.2,22 6.5,14.8 1,9.7 8.6,8.6 11.9,2"/></svg>
+	
+	<svg version="1.1" class="bh-star bh-star--2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" xml:space="preserve"><path class="outline" d="M12,4.2L14.5,9l0.2,0.5l0.5,0.1l5.5,0.8L16.8,14l-0.4,0.4l0.1,0.5l1,5.3l-5-2.5L12,17.5l-0.4,0.2l-5,2.5L7.5,15l0.1-0.5 L7.2,14l-4-3.7l5.5-0.8l0.5-0.1L9.5,9L12,4.2 M11.9,2L8.6,8.6L1,9.7l5.5,5.1L5.2,22l6.8-3.4l6.8,3.4l-1.3-7.2L23,9.6l-7.6-1L11.9,2 L11.9,2z"/><polygon class="full" points="18.8,22 12,18.6 5.2,22 6.5,14.8 1,9.7 8.6,8.6 11.9,2 15.4,8.6 23,9.6 17.5,14.7"/><polyline class="left-half" points="12,18.6 5.2,22 6.5,14.8 1,9.7 8.6,8.6 11.9,2"/></svg>
+	
+	<svg version="1.1" class="bh-star bh-star--3" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" xml:space="preserve"><path class="outline" d="M12,4.2L14.5,9l0.2,0.5l0.5,0.1l5.5,0.8L16.8,14l-0.4,0.4l0.1,0.5l1,5.3l-5-2.5L12,17.5l-0.4,0.2l-5,2.5L7.5,15l0.1-0.5 L7.2,14l-4-3.7l5.5-0.8l0.5-0.1L9.5,9L12,4.2 M11.9,2L8.6,8.6L1,9.7l5.5,5.1L5.2,22l6.8-3.4l6.8,3.4l-1.3-7.2L23,9.6l-7.6-1L11.9,2 L11.9,2z"/><polygon class="full" points="18.8,22 12,18.6 5.2,22 6.5,14.8 1,9.7 8.6,8.6 11.9,2 15.4,8.6 23,9.6 17.5,14.7"/><polyline class="left-half" points="12,18.6 5.2,22 6.5,14.8 1,9.7 8.6,8.6 11.9,2"/></svg>
+	
+	<svg version="1.1" class="bh-star bh-star--4" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" xml:space="preserve"><path class="outline" d="M12,4.2L14.5,9l0.2,0.5l0.5,0.1l5.5,0.8L16.8,14l-0.4,0.4l0.1,0.5l1,5.3l-5-2.5L12,17.5l-0.4,0.2l-5,2.5L7.5,15l0.1-0.5 L7.2,14l-4-3.7l5.5-0.8l0.5-0.1L9.5,9L12,4.2 M11.9,2L8.6,8.6L1,9.7l5.5,5.1L5.2,22l6.8-3.4l6.8,3.4l-1.3-7.2L23,9.6l-7.6-1L11.9,2 L11.9,2z"/><polygon class="full" points="18.8,22 12,18.6 5.2,22 6.5,14.8 1,9.7 8.6,8.6 11.9,2 15.4,8.6 23,9.6 17.5,14.7"/><polyline class="left-half" points="12,18.6 5.2,22 6.5,14.8 1,9.7 8.6,8.6 11.9,2"/></svg>
+	
+	<svg version="1.1" class="bh-star bh-star--5" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" xml:space="preserve"><path class="outline" d="M12,4.2L14.5,9l0.2,0.5l0.5,0.1l5.5,0.8L16.8,14l-0.4,0.4l0.1,0.5l1,5.3l-5-2.5L12,17.5l-0.4,0.2l-5,2.5L7.5,15l0.1-0.5 L7.2,14l-4-3.7l5.5-0.8l0.5-0.1L9.5,9L12,4.2 M11.9,2L8.6,8.6L1,9.7l5.5,5.1L5.2,22l6.8-3.4l6.8,3.4l-1.3-7.2L23,9.6l-7.6-1L11.9,2 L11.9,2z"/><polygon class="full" points="18.8,22 12,18.6 5.2,22 6.5,14.8 1,9.7 8.6,8.6 11.9,2 15.4,8.6 23,9.6 17.5,14.7"/><polyline class="left-half" points="12,18.6 5.2,22 6.5,14.8 1,9.7 8.6,8.6 11.9,2"/></svg>
+	
+</div>
+</div>
+    <p>Number of ratings: <%= hotel["ratings"].length %></p>
+    <%else%>
+    <p>No ratings available</p>
+    <%end%>
   </div>
 </div>
       <p>Address: <%= hotel["hotel"].address%>
@@ -19,7 +107,7 @@
      <div class = "room_header">
      <li>Room type</li>
      <li>Cost per day</li>
-     <li>Total rooms available</li>
+     <li>Number of rooms available</li>
      </div>
        <% hotel["rooms"].zip(hotel["availability"]).each do |room , availability| %>
         <div class="room">
@@ -34,7 +122,7 @@
       <%end%>
      </div>
       <div class="managerDetails">
-        <p>Contact <%= hotel["manager"].name %> @ <%= hotel["manager"].phoneNumber%></p>
+        <p>Contact <i class="fa-solid fa-phone fa-lg" style="color: #9722a0;"></i><%= hotel["manager"].name %>  <%= hotel["manager"].phoneNumber%></p>
       </div>
   </div>
 <%end%>

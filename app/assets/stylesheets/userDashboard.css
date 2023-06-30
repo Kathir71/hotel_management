@@ -1,3 +1,32 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+.rating-box {
+  padding: 25px 50px;
+  background-color: #f1f1f1;
+  border-radius: 25px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.08);
+  text-align: center;
+}
+.rating-box h3 {
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+.rating-box .stars {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+}
+.stars i {
+  font-size: 35px;
+  color: #b5b8b1;
+  transition: all 0.2s;
+  cursor: pointer;
+}
+.stars i.active {
+  color: #ffb851;
+  transform: scale(1.2);
+}
+
 .profile_first_container{
     display: flex;
     flex-direction: row;
@@ -39,16 +68,18 @@
  .dashboard_header{
     display: grid;
     grid-template-columns: 1.5fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    column-gap: 12px;
  }
 
  .up_dashboard_header{
     display: grid;
     grid-template-columns: 1.5fr 1fr 1fr 1fr 1fr 1fr;
+    column-gap: 12px;
  }
 
  .dashboard_header > li {
     list-style-type: none;
-    font-weight: 2rem;
+    font-weight: 1000;
     font-size:1.3rem;
  }
 
@@ -56,19 +87,22 @@
     display: grid;
     grid-template-columns: 1.5fr 1fr 1fr 1fr 1fr 1fr 1fr;
     font-size:1.15rem;
+    column-gap: 12px;
 }
 
 .up_dashboard_row{
     display: grid;
     grid-template-columns: 1.5fr 1fr 1fr 1fr 1fr 1fr;
+    column-gap: 12px;
 }
 .can_dashboard_row{
     display: grid;
     grid-template-columns: 1.5fr 1fr 1fr 1fr 1fr 1fr;
+    column-gap: 12px;
 }
 .up_dashboard_header > li {
     list-style-type: none;
-    font-weight: 2rem;
+    font-weight: 1000;
     font-size:1.3rem;
  }
 
@@ -85,4 +119,32 @@
 }
 .rating_form input {
     width: 50px;
+}
+
+.rating-box {
+  padding: 25px 50px;
+  background-color: #f1f1f1;
+  border-radius: 25px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.08);
+  text-align: center;
+}
+.rating-box h3 {
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+.rating-box .stars {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+}
+.stars i {
+  font-size: 35px;
+  color: #b5b8b1;
+  transition: all 0.2s;
+  cursor: pointer;
+}
+.stars i.active {
+  color: #ffb851;
+  transform: scale(1.2);
 }

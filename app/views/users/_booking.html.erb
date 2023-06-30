@@ -12,10 +12,10 @@
              <%else%>
                      <div class="rating_form">
                          <%= form_with scope: :rating , url:user_rate_path , local: true ,method: :post , data: { turbo: false } do |f| %>
-                         <%= f.number_field :rating%>
                          <%= f.hidden_field :booking_id , :value =>booking.id %>
+                         <%= f.number_field :rating , required:true , :id => 'rating'+booking.id.to_s%>
                          <%= f.submit "Rate between 1 and 5"%>
-                     </div>
+                    </div>
                     <%end%>
             <%end%>
          </div>

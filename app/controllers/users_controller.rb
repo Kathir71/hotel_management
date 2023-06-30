@@ -86,10 +86,18 @@ class UsersController < ApplicationController
     end
 
     def ratings
+        ratingVal = params[:rating]["rating"];
+        if ratingVal.to_i <= 0 || ratingVal.to_i > 5
+            flash[:danger] = "Invalid rating values"
+            redirect_to user_dashboard_path
+            return
+        end
+
         @rating = Rating.new(params.require(:rating).permit(:booking_id , :rating));
         if @rating.save
             flash[:success] = "Thanks for your feedback"
             redirect_to '/user/dashboard'
+            return
         else
             flash[:danger] = "Internal server error"
             redirect_to root_path

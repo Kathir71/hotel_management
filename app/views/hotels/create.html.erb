@@ -4,11 +4,11 @@
   <h1>Register your hotel</h1>
   <%= form_with scope: :custom , url:'/hotel/handleCreate' , local: true ,method: :post ,multipart:true, data: { turbo: false } do |f| %>
   <%= f.label :name%>
-  <%= f.text_field :name%>
+  <%= f.text_field :name , required:true%>
   <%= f.label :address%>
-  <%= f.text_field :address%>
+  <%= f.text_field :address , required:true%>
   <%= f.label :description%>
-  <%= f.text_field :description%>
+  <%= f.text_field :description , required:true%>
    <div id="rooms">
    <h2>Room types</h2>
     <div><%= render partial: "rooms_form", locals: {skill: false},multipart: true , method: :post%></div>

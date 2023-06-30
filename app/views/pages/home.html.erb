@@ -8,7 +8,7 @@
   <%= form_with scope: :query , url:'/hotel/search' , local: true ,method: :post , data: { turbo: false } do |f| %>
     <div class="search_input_container">
       <div class="search_row"><i class="bi bi-geo-alt"></i>
-        <%= f.text_field :query , placeholder: "Search locations or hotels" %>
+        <%= f.text_field :query , placeholder: "Search locations or hotels" , required:true%>
           <label class="dropdown">
             <div class="dd-button">
               Sort by
@@ -44,11 +44,11 @@
       <div class="search_row_2">
         <div>
           <%= f.label "Check in date" %>
-            <%= f.date_field :checkInDate , placeholder: "Check in date" %>
+            <%= f.date_field :checkInDate , placeholder: "Check in date"  , required:true%>
         </div>
         <div>
           <%= f.label "Check out date" %>
-            <%= f.date_field :checkOutDate , placeholder: "Check out date" %>
+            <%= f.date_field :checkOutDate , placeholder: "Check out date" , required:true%>
         </div>
       </div>
       <div class="checkbox">
@@ -73,9 +73,9 @@
   <section class= "info_sec">
   <div class = "info_sec_content">
   <h2>Explore more and enjoy more</h2>
-  <p>Need a place to stay? Let us help you! Compare deals of your favorite hotels. All in one place. Hotels at great rate. Compare & save. Hotel deals. Act fast for great deals. Free and easy to use.</p>
+  <p>Need a place to stay? Let us help you! Compare deals of your favorite hotels. All in one place. Hotels at great rate. Compare & save. Hotel deals. Act fast for great deals. Free and easy to use.<i class="fa-solid fa-location-dot"></i><i class="fa-solid fa-location-dot fa-xl"></i></p>
   </div>
   <div class = "img_container">
   </div>
   </section>
-  
+<i class="fa-light fa-location-dot"></i>

@@ -37,6 +37,7 @@ class HotelsController < ApplicationController
 
     def search
         query = params[:query]["query"].downcase
+        @query = query #for default form filling
         @checkInDate = params[:query]["checkInDate"]
         @checkOutDate = params[:query]["checkOutDate"]
         @hotels = Hotel.where("lower(name) LIKE ?" , "%" + query + "%").or(Hotel.where("lower(address) LIKE ?" , "%" + query + "%"))
@@ -62,39 +63,48 @@ class HotelsController < ApplicationController
             @finalArr << combinedObj
         end
         #filters
-        onlyAvailable = params[:query]["onlyAvailable"].to_i
-        sortByprice = params[:query]["sortByprice"].to_i
-        sortByAvailability = params[:query]["sortByAvailability"].to_i
-        sortByRating = params[:query]["sortByRating"].to_i
-        if onlyAvailable == 1
+        @onlyAvailable = params[:query]["onlyAvailable"].to_i
+        @sortByprice = params[:query]["sortByprice"].to_i
+        @sortByAvailability = params[:query]["sortByAvailability"].to_i
+        @sortByRating = params[:query]["sortByRating"].to_i
+        if @onlyAvailable == 1
             @finalArr = filter_only_available(@finalArr)
         end
 
 
-        if sortByAvailability == 1
+        if @sortByAvailability == 1
             @finalArr = sort_based_on_availability(@finalArr)
         end
 
-        if sortByRating == 1
+        if @sortByRating == 1
             @finalArr = sort_based_on_rating(@finalArr)
         end
 
         #maxPri given if set
-        if sortByprice == 1
+        if @sortByprice == 1
             @finalArr = sort_based_on_cost(@finalArr)
         end
 
         lowerBound = params[:query]["lowerBound"]
+        @uLowerBound = lowerBound #for default form filling
         if (lowerBound == "")
             lowerBound = 0
         else 
             lowerBound = lowerBound.to_i
         end
         upperBound = params[:query]["upperBound"]
+        @uUpperBound = upperBound #for default form filling
         if (upperBound == "")
             upperBound = 999999999999;
         else
             upperBound = upperBound.to_i 
+        end
+
+        #boundsChecking
+        if lowerBound < 0 || upperBound < 0 || lowerBound >= upperBound
+            flash.now[:danger] = "Invalid price range given"
+            redirect_to root_path
+            return
         end
 
         @finalArr = filter_based_on_cost(@finalArr , lowerBound , upperBound);
@@ -327,14 +337,14 @@ class HotelsController < ApplicationController
             roomImages = params["roomImages"]
             roomCostsCheck = false;
             roomCosts.each do |cost|
-                if cost < 0
+                if cost.to_i < 0
                     roomCostsCheck = true;
                 end
             end
 
             roomAvailablesCheck = false;
             roomAvailables.each do |available|
-                if available <= 0 || available.is_a?(Float)
+                if available.to_i <= 0 || available.is_a?(Float)
                     roomAvailablesCheck = true;
                 end
             end

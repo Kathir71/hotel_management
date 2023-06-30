@@ -5,23 +5,23 @@
         <%= form_with scope: :managers , url:'/hotelManager/signup' , local: true ,method: :post , data: { turbo: false } do |f| %>
         <div class="row">
             <%= f.label :name%>
-            <%= f.text_field :name , placeholder:"Name"%>
+            <%= f.text_field :name , placeholder:"Name" , required:true%>
         </div>
         <div class="row">
             <%= f.label :phoneNumber%>
-            <%= f.text_field :phoneNumber , placeholder: "Phone Number"%>
+            <%= f.text_field :phoneNumber , placeholder: "Phone Number" , required:true%>
         </div>
         <div class="row">
             <%= f.label :employee_id%>
-            <%= f.text_field :employee_id , placeholder: "Employee Id"%>
+            <%= f.text_field :employee_id , placeholder: "Employee Id" , required:true%>
         </div>
         <div class="row">
             <%= f.label :email%>
-            <%= f.email_field :email, placeholder: "Email"%>
+            <%= f.email_field :email, placeholder: "Email" , required:true%>
         </div>
         <div class="row">
             <%= f.label :password%>
-            <%= f.password_field :password, placeholder: "Password" %>
+            <%= f.password_field :password, placeholder: "Password" , required:true %>
         </div>
         <%= f.submit "Sign up" , :class => 'login_btn'%>
     </div>

@@ -6,4 +6,5 @@
 //= link alert.js
 //= link application.js
 //= link test.js
+//= link modal.js
 

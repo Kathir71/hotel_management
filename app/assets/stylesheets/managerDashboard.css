@@ -38,18 +38,20 @@
 .hotel_bookings_header{
     display: grid;
     grid-template-columns: 1fr 2fr 1fr 1fr 1fr 1fr 1fr;
+    column-gap: 12px;
 }
 
 .hotel_bookings_header li {
     list-style-type: none;
     font-size:1.3rem;
-    font-weight: 1rem;;
+    font-weight: 1000;
 }
 
 .booking_row {
     display: grid;
     grid-template-columns: 1fr 2fr 1fr 1fr 1fr 1fr 1fr;
     font-size: 1.15rem;
+    column-gap: 12px;
 }
 
 .bookings_container{

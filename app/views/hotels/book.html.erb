@@ -24,7 +24,7 @@
                 <%= form_with scope: :booking , url:'/hotel/handleBooking' , local: true ,method: :post , data: { turbo: false } do |f| %>
                 <p>Please enter the number of rooms required to complete the booking , not exceeding <%= @room["availability"] %></p>
                 <%= f.label "Number of rooms needed"%>
-                <%= f.number_field :numRoomsBooked%>
+                <%= f.number_field :numRoomsBooked ,required:true%>
                 <%= f.hidden_field :roomType, :value => @room["roomType"] %>
                 <%= f.hidden_field :roomCost, :value => @room["roomCost"] %>
                 <%= f.hidden_field :roomId, :value => @room["roomId"] %>

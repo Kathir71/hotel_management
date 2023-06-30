@@ -49,7 +49,7 @@ class ManagersController < ApplicationController
 
     def handleUserSearch
       query = params[:query]["queryEmail"].downcase 
-      user = User.where("email = ?" , query).first
+      user = User.where("email like ?" , query).first
       @searchResults = Booking.joins(:user , :room).select('bookings.*' , 'users.*' , 'rooms.*').where("user_id = ?" , user.id).where("bookings.hotel_id = ?" , current_manager.hotel.id).order(checkInDate: :desc)
       render 'search'
     #   respond_to do |format|
@@ -76,6 +76,7 @@ class ManagersController < ApplicationController
 
         else
             #users in the interval
+            #rooms that have been booked??
             @searchResults = @hotel.bookings.joins(:user , :room).select('bookings.*' , 'users.*' , 'rooms.*').where("checkInDate >= ?" , checkInDate.to_date).where("checkOutDate <= ?" , checkOutDate.to_date).where("hotel_id = ?" , @hotel.id).order(:checkInDate)
         end
       render 'search'

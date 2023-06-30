@@ -1,9 +1,11 @@
 <div class="skillsForm">
   <%= label_tag 'Room type' %>
-  <%= text_field_tag name = 'roomType[]'%>
+  <%= text_field_tag name = 'roomType[]' ,nil , :required =>true %>
   <%= label_tag 'Room Cost' %>
-  <%= number_field_tag name = 'roomCost[]'%>
+  <%= number_field_tag name = 'roomCost[]' , nil ,:step => "0.01", :required =>true %>
   <%= label_tag 'Rooms Available' %>
-  <%= number_field_tag name = 'roomAvailable[]'%>
-  <%= file_field_tag name = 'roomImages[]'%>
+  <%= number_field_tag name = 'roomAvailable[]' , nil , :required => true%>
+  <br>
+  <%= label_tag 'Room Image' %>
+  <%= file_field_tag name = 'roomImages[]' , :required =>true %>
 </div>
