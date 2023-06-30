@@ -72,7 +72,10 @@ class UsersController < ApplicationController
             @bookings = current_user.bookings.joins(:rating).select('bookings.id , ratings.rating') #rated bookings
             @cancelledBookings = Booking.joins(:hotel).select( 'bookings.id , bookings.user_id , bookings.hotel_id , bookings.roomType , bookings.numRoomsBooked , bookings.price , bookings.checkInDate , bookings.checkOutDate , bookings.isCancelled , hotels.name').where('user_id = ?' , current_user.id).where('isCancelled = ?' , true).order(:checkInDate).paginate(:page =>params[:page] ,  :per_page => 3);
             flash.now[:success] = "Booking cancelled successfully"
-            render 'dashboard'
+            CancelMailer.with(user:current_user , hotel:reqBooking.hotel, booking_details:reqBooking , manager:reqBooking.hotel.manager).cancel_booking_mailer.deliver_later
+            debugger
+            redirect_to user_dashboard_path
+            return
         else
             flash[:danger] = "Internal server error"
             redirect_to root_path

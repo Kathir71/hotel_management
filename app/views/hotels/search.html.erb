@@ -100,8 +100,8 @@
     <%end%>
   </div>
 </div>
-      <p>Address: <%= hotel["hotel"].address%>
-      <p>Description: <%= hotel["hotel"].description%>
+      <p><span style="font-weight:1000">Address:</span> <%= hotel["hotel"].address%>
+      <p><span style="font-weight:1000">Description:</span> <%= hotel["hotel"].description%>
       <h3>Rooms</h3>
      <div class="room_container">
      <div class = "room_header">
@@ -122,7 +122,7 @@
       <%end%>
      </div>
       <div class="managerDetails">
-        <p>Contact <i class="fa-solid fa-phone fa-lg" style="color: #9722a0;"></i><%= hotel["manager"].name %>  <%= hotel["manager"].phoneNumber%></p>
+        <p><span style="font-weight:1000">Contact</span> <i class="fa-solid fa-phone fa-lg" style="color: #9722a0;"></i><%= hotel["manager"].name %>  <%= hotel["manager"].phoneNumber%></p>
       </div>
   </div>
 <%end%>

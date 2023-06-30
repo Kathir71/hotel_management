@@ -31,6 +31,7 @@ class HotelsController < ApplicationController
             flash[:success] ="Hotels and rooms created successfully"
             redirect_to '/'
         else
+            flash[:danger] = "Invalid or server error"
             render 'create'
         end
     end
@@ -40,6 +41,7 @@ class HotelsController < ApplicationController
         @query = query #for default form filling
         @checkInDate = params[:query]["checkInDate"]
         @checkOutDate = params[:query]["checkOutDate"]
+        @hotels = Hotel.where("lower(name) LIKE ?" , Hotel.sanitize_sql_like("%" + query + "%")).or(Hotel.where("lower(address) LIKE ?" , Hotel.sanitize_sql_like("%" + query + "%")));
         @hotels = Hotel.where("lower(name) LIKE ?" , "%" + query + "%").or(Hotel.where("lower(address) LIKE ?" , "%" + query + "%"))
         @finalArr = []
         @hotels.each do |hotel|

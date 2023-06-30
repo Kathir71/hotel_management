@@ -7,5 +7,5 @@
   <%= number_field_tag name = 'roomAvailable[]' , nil , :required => true%>
   <br>
   <%= label_tag 'Room Image' %>
-  <%= file_field_tag name = 'roomImages[]' , :required =>true %>
+  <%= file_field_tag name = 'roomImages[]' , :required =>true , accept:"image/png, image/jpeg"%>
 </div>

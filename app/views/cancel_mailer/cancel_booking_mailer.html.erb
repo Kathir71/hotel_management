@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+  <p>Hello <%= @user.name %></p>
+  <p>Your tickets at <%= @hotel.name %> have been cancelled</p>
+    <p>
+    Cancelled booking details<br>
+    --------------------------
+    </p>
+    <p>Room Type : <%= @booking.roomType %></p>
+    <p>Number of rooms booked: <%= @booking.numRoomsBooked %></p>
+    <p>Check in date <%= @booking.checkInDate %></p>
+    <p>Check out date <%= @booking.checkOutDate %></p>
+  <div>
+   <p>If not done by you , contact <%= @manager.name %> the manager of <%= @hotel.name %>.</p>
+   <p>Contact Number: <%= @manager.phoneNumber %> </p>
+  </div>
+  </body>
+</html>

@@ -6,4 +6,5 @@ class Room < ApplicationRecord
     belongs_to :hotel
     has_many :bookings
     has_one_attached :roomImage
+    validates :roomImage , presence:true , blob: { content_type: ['image/png', 'image/jpg', 'image/jpeg' , 'image/webp'], size_range: 1..(10.megabytes) }
 end
