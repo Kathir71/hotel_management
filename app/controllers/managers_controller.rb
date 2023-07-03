@@ -49,8 +49,7 @@ class ManagersController < ApplicationController
 
     def handleUserSearch
       query = params[:query]["queryEmail"].downcase 
-      query = "%" + query + "%"
-      user = User.where("email like ?" , query)
+      user = User.where("email = ?" , query).first
       @searchResults = Booking.joins(:user , :room).select('bookings.*' , 'users.*' , 'rooms.*').where("user_id = ?" , user.id).where("bookings.hotel_id = ?" , current_manager.hotel.id).order(checkInDate: :desc)
       render 'search'
     #   respond_to do |format|
@@ -78,7 +77,13 @@ class ManagersController < ApplicationController
         else
             #users in the interval
             #rooms that have been booked??
-            @searchResults = @hotel.bookings.joins(:user , :room).select('bookings.*' , 'users.*' , 'rooms.*').where("checkInDate >= ?" , checkInDate.to_date).where("checkOutDate <= ?" , checkOutDate.to_date).where("hotel_id = ?" , @hotel.id).order(:checkInDate)
+            bookingsInInterval = Booking.joins(:user , :room).select('bookings.*' , 'Users.*' , 'rooms.roomType').where("bookings.hotel_id = ?" , @hotel.id).where("checkInDate >= ?" , checkInDate.to_date).where("checkInDate <= ?" , checkOutDate.to_date).or(
+                Booking.where("checkOutDate >= ?" , checkInDate.to_date ).where("checkOutDate <= ?" ,checkOutDate.to_date ).where("bookings.hotel_id = ?" , @hotel.id).or(
+                    Booking.where("bookings.hotel_id = ?" , @hotel.id).where("checkInDate <= ?" , checkInDate.to_date).where("checkOutDate >= ?" , checkOutDate.to_date)
+                )
+            )
+            @searchResults = @hotel.bookings.joins(:user , :room).select('bookings.*' , 'users.*' , 'rooms.*').where("checkInDate >= ?" , checkInDate.to_date).where("checkOutDate <= ?" , checkOutDate.to_date).order(:checkInDate)
+            @searchResults = bookingsInInterval
         end
       render 'search'
         

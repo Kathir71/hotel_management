@@ -9,8 +9,19 @@ class HotelsController < ApplicationController
     end
 
     def handleCreate
-        @hotel = Hotel.new(params.require(:custom).permit(:name , :address , :description))
+        name = params[:custom]["name"].strip
+        address = params[:custom]["address"].strip
+        description = params[:custom]["description"].strip
+        @hotel = Hotel.new()
+        @hotel.name = name
+        @hotel.address = address
+        @hotel.description = description
         @hotel.manager_id = current_manager.id
+        if current_manager.hotel
+            flash[:danger] = "You already have a hotel"
+            redirect_to root_path
+            return
+        end
         if @hotel.save
             numRooms = params["roomType"].length 
             roomTypes = params["roomType"]
@@ -19,7 +30,7 @@ class HotelsController < ApplicationController
             roomImages = params["roomImages"]
             for i in 1..numRooms do
             @room = Room.new()
-            @room.roomType = roomTypes[i-1]
+            @room.roomType = roomTypes[i-1].strip
             @room.cost = roomCosts[i-1]
             @room.totalAvailable = roomAvailables[i-1]
             @room.hotel_id = @hotel.id
@@ -37,7 +48,7 @@ class HotelsController < ApplicationController
     end
 
     def search
-        query = params[:query]["query"].downcase
+        query = params[:query]["query"].downcase.strip
         @query = query #for default form filling
         @checkInDate = params[:query]["checkInDate"]
         @checkOutDate = params[:query]["checkOutDate"]
@@ -104,7 +115,7 @@ class HotelsController < ApplicationController
 
         #boundsChecking
         if lowerBound < 0 || upperBound < 0 || lowerBound >= upperBound
-            flash.now[:danger] = "Invalid price range given"
+            flash[:danger] = "Invalid price range given"
             redirect_to root_path
             return
         end
@@ -160,7 +171,7 @@ class HotelsController < ApplicationController
             flash[:success] = "Rooms booked successfully"
             redirect_to root_path
         else
-            flash[:danger] = "Some error has happened"
+            flash[:danger] = "Internal Server Error"
             redirect_to root_path
         end
     end
@@ -274,7 +285,7 @@ class HotelsController < ApplicationController
             xSum = 0;
             xNum = x["ratings"].length
             x["ratings"].each do |rating|
-                xSum += rating.rating.to_i
+                xSum += rating.rating.to_f
             end
             if xNum != 0
             xAvg = xSum / xNum
@@ -282,7 +293,7 @@ class HotelsController < ApplicationController
             ySum = 0;
             yNum = y["ratings"].length
             y["ratings"].each do |rating|
-                ySum += rating.rating.to_i
+                ySum += rating.rating.to_f
             end
             if yNum != 0
             yAvg = ySum / yNum
